@@ -9,7 +9,7 @@ from datetime import timedelta
 from pattern.web import URL, DOM, plaintext, strip_between
 from pattern.web import NODE, TEXT, COMMENT, ELEMENT, DOCUMENT
 
-output = open("hn_129am.csv", "wb")
+output = open("hn_mon_129pm.csv", "wb")
 writer = csv.writer(output)
 writer.writerow(["Title", "Points", "Url", "Time_Posted"])
 
@@ -101,14 +101,16 @@ while end_scrape == False:
     
       # Linked article parsing
       try:
-        response = br.open( url, timeout=20.0 )
+        response = br.open( url, timeout=15.0 )
         dom2 = DOM(response.read())
         article_text = plaintext(dom2.html, keep=[], replace={}, linebreaks=1, indentation=False)
         word_list = re.findall(r"[\w']+", article_text.lower())
         count = Counter()
         for word in word_list:
-          if word not in stop_list:
-            count[word] += 1
+          count[word] += 1
+        for word in count:
+          if word in stop_list:
+            count[word] = 0
         title_words = re.findall(r"[\w']+", article_text.lower())
         for t_word in title_words:
           if word not in stop_list:
@@ -117,7 +119,7 @@ while end_scrape == False:
       except:
         pass
         common_words = []
-      writer.writerow( (title, points, url, time_parsed, common_words) )
+      writer.writerow( (title.replace(',', ' '), points, url, time_parsed, common_words) )
     else:
       end_scrape = True
 
