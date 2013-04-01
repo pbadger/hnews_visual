@@ -9,7 +9,7 @@ from datetime import timedelta
 from pattern.web import URL, DOM, plaintext, strip_between
 from pattern.web import NODE, TEXT, COMMENT, ELEMENT, DOCUMENT
 
-output = open("hn_test_output.csv", "wb")
+output = open("hn_129am.csv", "wb")
 writer = csv.writer(output)
 writer.writerow(["Title", "Points", "Url", "Time_Posted"])
 
@@ -20,7 +20,7 @@ br.addheaders = [('User-agent', 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.
 
 response = br.open('https://news.ycombinator.com/newest')
 dom = DOM(response.read())
-end_scrape = 'false'
+
 
 
 stop_list = ['a','a','able','about','above','according','accordingly','across','actually','after','afterwards','again','against','ain','all',
@@ -59,60 +59,70 @@ stop_list = ['a','a','able','about','above','according','accordingly','across','
 'willing','wish','with','within','without','won','wonder','would','would','wouldn','x','y','yes','yet','you','your','yours',
 'yourself','yourselves','z','zero']
 
-# while end_scrape = 'false':
-for post_index in range(1,31):
-  first_line = dom.by_tag('table')[2][ 3*post_index - 3 ][2]
-  second_line = dom.by_tag('table')[2][ 3*post_index - 2 ][1]
+article_number = 0
+end_scrape = False
+while end_scrape == False:
+  for post_index in range(1,31):
+    article_number += 1
+    first_line = dom.by_tag('table')[2][ 3*post_index - 3 ][2]
+    second_line = dom.by_tag('table')[2][ 3*post_index - 2 ][1]
 
-  title = first_line[0].content
-  url = first_line[0].href
-  points = int(second_line[0].content.split(" ")[0])
+    title = first_line[0].content
+    
+    url = first_line[0].href
+    if 'item?' in url[0:8]:
+      url = 'http://news.ycombinator.com/' + url
 
-  # Time calculations
-  time_string = second_line[3].html[1:15]
-  if 'hour' in time_string:
-    hours_since_post = int(time_string[0:2])
-  else:
-    min_since_post = float(time_string[0:2])/60
-    if min_since_post < .5:
-      hours_since_post = 0
+    points = int(second_line[0].content.split(" ")[0])
+
+    # Time calculations
+    time_string = second_line[3].html[1:15]
+    if 'hour' in time_string:
+      hours_since_post = int(time_string[0:2])
     else:
-      hours_since_post = 1
+      min_since_post = float(time_string[0:2])/60
+      if min_since_post < .5:
+        hours_since_post = 0
+      else:
+        hours_since_post = 1
 
-  if hours_since_post < 13:
-    diff = timedelta(hours=hours_since_post)
-    time_posted = datetime.now() - diff
-    time_parsed = time_posted.strftime("%d %m %H:00")
-    # returns: '30 03, 23:00' NOTE: This can be changed using http://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior
+    if hours_since_post < 13:
+      diff = timedelta(hours=hours_since_post)
+      time_posted = datetime.now() - diff
+      time_parsed = time_posted.strftime("%d %m %H:00")
+      # returns: '30 03, 23:00' NOTE: This can be changed using http://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior
 
-    title = title.encode('ascii','ignore')
-    # points = points.encode('ascii','ignore')
-    url = url.encode('ascii','ignore')
-    time_parsed = time_parsed.encode('ascii','ignore')
+      title = title.encode('ascii','ignore')
+      # points = points.encode('ascii','ignore')
+      url = url.encode('ascii','ignore')
+      time_parsed = time_parsed.encode('ascii','ignore')
 
-    print (title, points, url, time_parsed)
+      print (title, points, article_number)
+    
+      # Linked article parsing
+      try:
+        response = br.open( url, timeout=20.0 )
+        dom2 = DOM(response.read())
+        article_text = plaintext(dom2.html, keep=[], replace={}, linebreaks=1, indentation=False)
+        word_list = re.findall(r"[\w']+", article_text.lower())
+        count = Counter()
+        for word in word_list:
+          if word not in stop_list:
+            count[word] += 1
+        title_words = re.findall(r"[\w']+", article_text.lower())
+        for t_word in title_words:
+          if word not in stop_list:
+            count[word] += 3
+        common_words = count.most_common(7)
+      except:
+        pass
+        common_words = []
+      writer.writerow( (title, points, url, time_parsed, common_words) )
+    else:
+      end_scrape = True
 
-    response = br.open(url)
-    dom2 = DOM(response.read())
-    article_text = plaintext(dom2.html, keep=[], replace={}, linebreaks=1, indentation=False)
-
-    word_list = re.findall(r"[\w']+", article_text.lower())
-    count = Counter()
-    for word in word_list:
-      if word not in stop_list:
-        count[word] += 1
-    print count.most_common(7)
-
-    writer.writerow( (title, points, url, time_parsed, count.most_common(5)) )
-  else:
-    end_scrape = 'true'
-
-
-# new_link = 'https://news.ycombinator.com/' + dom.by_tag('table')[2][91][1][0].href
-# response = br.open(new_link)
-# dom = DOM(response.read())
-
-
-# DATA = 'Hey, you - what are you doing-here!?sads Hey, you - what are you doing-here!?Hey, you - what are you doing-here!?Hey, you - what are you doing-here!?'
-
+  new_link = 'http://news.ycombinator.com' + dom.by_tag('table')[2][91][1][0].href
+  print new_link
+  response = br.open(new_link)
+  dom = DOM(response.read())
 
