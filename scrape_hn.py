@@ -9,9 +9,9 @@ from datetime import timedelta
 from pattern.web import URL, DOM, plaintext, strip_between
 from pattern.web import NODE, TEXT, COMMENT, ELEMENT, DOCUMENT
 
-output = open("hn_mon_129pm.csv", "wb")
+output = open("hn_tues_156am.csv", "wb")
 writer = csv.writer(output)
-writer.writerow(["Title", "Points", "Url", "Time_Posted"])
+writer.writerow(["Title", "Points", "Url", "Time_Posted", "Keywords"])
 
 # Mechanize simulates a browser 
 br = mechanize.Browser()
@@ -106,12 +106,13 @@ while end_scrape == False:
         article_text = plaintext(dom2.html, keep=[], replace={}, linebreaks=1, indentation=False)
         word_list = re.findall(r"[\w']+", article_text.lower())
         count = Counter()
+        word_list = word_list[0:5000]
         for word in word_list:
           count[word] += 1
         for word in count:
           if word in stop_list:
             count[word] = 0
-        title_words = re.findall(r"[\w']+", article_text.lower())
+        title_words = re.findall(r"[\w']+", title.lower())
         for t_word in title_words:
           if word not in stop_list:
             count[word] += 3
