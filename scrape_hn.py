@@ -9,7 +9,7 @@ from datetime import timedelta
 from pattern.web import URL, DOM, plaintext, strip_between
 from pattern.web import NODE, TEXT, COMMENT, ELEMENT, DOCUMENT
 
-output = open("hn_tues_156am.csv", "wb")
+output = open("hn_wed_203am.csv", "wb")
 writer = csv.writer(output)
 writer.writerow(["Title", "Points", "Url", "Time_Posted", "Keywords"])
 
