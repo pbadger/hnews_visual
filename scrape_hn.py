@@ -9,7 +9,7 @@ from datetime import timedelta
 from pattern.web import URL, DOM, plaintext, strip_between
 from pattern.web import NODE, TEXT, COMMENT, ELEMENT, DOCUMENT
 
-output = open("hn_wed_203am.csv", "wb")
+output = open("hn_mon_202am.csv", "wb")
 writer = csv.writer(output)
 writer.writerow(["Title", "Points", "Url", "Time_Posted", "Keywords"])
 
@@ -23,7 +23,7 @@ dom = DOM(response.read())
 
 
 
-stop_list = ['a','a','able','about','above','according','accordingly','across','actually','after','afterwards','again','against','ain','all',
+stop_list = ['1','2','3','4','5','6','7','8','9','10','a','able','about','above','according','accordingly','across','actually','after','afterwards','again','against','ain','all',
 'allow','allows','almost','alone','along','already','also','although','always','am','among','amongst','an','and','another','any',
 'anybody','anyhow','anyone','anything','anyway','anyways','anywhere','apart','appear','appreciate','appropriate','are','aren',
 'around','as','aside','ask','asking','associated','at','available','away','awfully','b','be','became','because','become','becomes',
@@ -85,8 +85,8 @@ while end_scrape == False:
         hours_since_post = 0
       else:
         hours_since_post = 1
-
-    if hours_since_post < 13:
+    # NOTE: THE FOLLOWING 23 REFERS TO THE NUMBER OF HOURS, AND ASSUMES THIS WILL BE RUN AT 1AM 
+    if hours_since_post < 23:
       diff = timedelta(hours=hours_since_post)
       time_posted = datetime.now() - diff
       time_parsed = time_posted.strftime("%d %m %H:00")
@@ -106,22 +106,26 @@ while end_scrape == False:
         article_text = plaintext(dom2.html, keep=[], replace={}, linebreaks=1, indentation=False)
         word_list = re.findall(r"[\w']+", article_text.lower())
         count = Counter()
-        word_list = word_list[0:5000]
+        word_list = word_list[0:3000]
         for word in word_list:
           count[word] += 1
         for word in count:
           if word in stop_list:
             count[word] = 0
         title_words = re.findall(r"[\w']+", title.lower())
+        top_word_number = int(count.most_common(1)[0][1]*.75)
         for t_word in title_words:
           if word not in stop_list:
-            count[word] += 3
+            count[word] += top_word_number
         common_words = count.most_common(7)
+        # CHECK FOR PLURALS? 
       except:
         pass
         common_words = []
       writer.writerow( (title.replace(',', ' '), points, url, time_parsed, common_words) )
     else:
+      end_scrape = True
+    if 'day' in time_string:
       end_scrape = True
 
   new_link = 'http://news.ycombinator.com' + dom.by_tag('table')[2][91][1][0].href
