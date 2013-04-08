@@ -1814,8 +1814,8 @@
 	</textarea>
 	<script>
 		var margin = {top: 20, right: 20, bottom: 30, left: 50},
-			width = 960 - margin.left - margin.right,
-			height = 500 - margin.top - margin.bottom;
+			width = 850 - margin.left - margin.right,
+			height = 450 - margin.top - margin.bottom;
 
 		var parseDate = d3.time.format("%d %m %H:%M").parse;
 
@@ -1924,7 +1924,13 @@
 			path.style("stroke", color(days.indexOf(d)));
 		}
 		
+		var clicked = false;
+		var top5 = new Array();
+		
 		function click(d) {
+			if(clicked) d3.select("#bar").remove();
+
+			clicked = true;
 			var id = color.domain()[days.indexOf(d)];
 			data = document.getElementById(id+"_csv").value;
 			data = data.split("\n");
@@ -1940,20 +1946,24 @@
 				else if (a == b) return 0;
 				else return 1;
 			});
-			var top5 = data.splice(0,5);
+			
+			top5 = data.splice(0,5);
 			for(var i=0; i < top5.length; i++) {
 				top5[i] = top5[i].split(",");
 			}
-			console.log(top5);
-			var bar = d3.select("body").append("div")
+
+			var side = d3.select("body").append("div")
 				.attr("class", "container")
-			  .append("svg")
+				.attr("id", "bar");
+			side.append("h2")
+				.text("Top Posts for "+id[0].toUpperCase() + id.slice(1) + " by Points");
+			var bar = side.append("svg")
 				.attr("class", "chart")
 				.attr("width", 300)
 				.attr("height", 20 * 5);
 			
 			var x = d3.scale.linear()
-				.domain([0, d3.max(top5, function(d) { console.log(d); return d[1]; })])
+				.domain([0, d3.max(top5, function(d) { return d[1]; })])
 				.range([0, 300]);
 			
 			bar.selectAll("rect")
@@ -1961,8 +1971,31 @@
 			  .enter().append("rect")
 				.attr("y", function(d, i) { return i * 20; })
 				.attr("width", function(d) { return x(d[1]); })
-				.attr("height", 20);
+				.attr("height", 20)
+				.attr("id", function(d, i) { return i; })
+				.on("mouseover", barHover)
+				.on("mouseout", barExit);
 			
+		}
+		
+		function barHover(d) {
+			var id = top5.indexOf(d);
+			console.log("\'"+id+"\'");
+			//d3.select("#"+id).style("stroke", "black");
+			
+			console.log(id);
+			var tooltip = d3.select("#bar").append("div")
+				.attr("id", "tooltip")
+				.attr("width", 300);
+			
+			tooltip.append("h3")
+				.text("\""+d[0]+"\"");
+			tooltip.append("p")
+				.text("Points: "+d[1]);
+		}
+		
+		function barExit(d) {
+			d3.select("#tooltip").remove();
 		}
 	</script>	
 	
