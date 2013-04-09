@@ -5,7 +5,7 @@
   </head>
 
   <body>
-	<h1>A Snapshot of Hacker News</h1>
+	<h1><center>A Snapshot of Hacker News</center></h1>
 	<textarea class="csv" id="monday_csv"> 
 		Title,Points,Url,Time_Posted,Keywords
 		Defense Distributed and DefCad Seized,3,http://www.defcad.org/,01 04 00:00,[]
@@ -3676,7 +3676,7 @@ I emailed Tim Cook,4,http://xindustries.wordpress.com/2013/04/04/i-emailed-tim-c
 			.y(function(d) { return y(d[1]); });
 
 		var svg = d3.select("body").append("div")
-			.attr("class", "container")
+			.attr("class", "container line_graph")
 		  .append("svg")
 			.attr("width", width + margin.left + margin.right)
 			.attr("height", height + margin.top + margin.bottom)
@@ -3789,6 +3789,10 @@ I emailed Tim Cook,4,http://xindustries.wordpress.com/2013/04/04/i-emailed-tim-c
 				else if (a == b) return 0;
 				else return 1;
 			});
+
+			$('.back_but').fadeIn();
+			$('.line_graph').fadeOut();
+			draw_scatter(id);
 			
 			top5 = data.splice(0,5);
 			for(var i=0; i < top5.length; i++) {
@@ -3804,6 +3808,11 @@ I emailed Tim Cook,4,http://xindustries.wordpress.com/2013/04/04/i-emailed-tim-c
 				.attr("class", "chart")
 				.attr("width", 300)
 				.attr("height", 20 * 5);
+
+			var side2 = d3.select("body").append("div")
+				.attr("class", "container hidden back_but")
+				.text("Back")
+				.on("click",function(){$('.scatter_plot').fadeOut();$('.line_graph').fadeIn();$('.chart').fadeOut();$('#bar').fadeOut();$('.back_but').fadeOut();$('.back_but').remove()})
 			
 			var x = d3.scale.linear()
 				.domain([0, d3.max(top5, function(d) { return d[1]; })])
@@ -3819,7 +3828,7 @@ I emailed Tim Cook,4,http://xindustries.wordpress.com/2013/04/04/i-emailed-tim-c
 				.on("mouseover", barHover)
 				.on("mouseout", barExit)
 				.on("click", barclick);
-			
+				
 		}
 		
 		function barclick(d) {

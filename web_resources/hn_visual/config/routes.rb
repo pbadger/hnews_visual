@@ -1,7 +1,7 @@
 HnVisual::Application.routes.draw do
   get "graphs/scatter"
-  get "graphs/main"
-  resources :graphs
+  get "graphs/index"
+  # resources :graphs
 
 
 

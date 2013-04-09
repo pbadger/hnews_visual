@@ -121,11 +121,6 @@ var draw_bars = function(keywords,day){
     .style("font-size",15)
     .text( function(d,i){return d.word});
 
-      
-
-  $($('svg')[1]).css("margin-left",'100px');
-  $($('svg')[0]).css("margin-left",'90px');
-  $('rect')[27].remove()
 }
 
 

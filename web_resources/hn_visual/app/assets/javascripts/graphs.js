@@ -34,6 +34,7 @@ var draw_scatter = function(day){
       .orient("left");
 
   var svg = d3.select("body").append("svg")
+    .attr("class", "scatter_plot")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
@@ -60,10 +61,11 @@ var draw_scatter = function(day){
     .attr("class","label")
     // .attr("transform","rotate(-90)")
     .attr("y", height/2)
-    .attr("x", 50)
+    .attr("x", 60)
     .attr("dy", '.72em')
     .style("text-anchor","end")
     .text("Points")
+    .style("font-size",15)
 
   svg.selectAll("circle")
     .data(scatter[day])
