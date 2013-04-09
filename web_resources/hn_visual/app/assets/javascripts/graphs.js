@@ -10,9 +10,9 @@ var draw_scatter = function(day){
     return hour +"-"+ minute;
   }
 
-  var margin = {top: 20, right: 20, bottom: 30, left: 40},
+  var margin = {top: 20, right: 20, bottom: 60, left: 40},
     width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    height = 400 - margin.top - margin.bottom;
 
   var x = d3.time.scale()
     .range([0, width])
@@ -38,6 +38,8 @@ var draw_scatter = function(day){
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+  scatter['svg'] =svg;
+
   svg.append("g")
     .attr("class","x axis")
     .attr("transform","translate(0," + height + ")")
@@ -45,9 +47,10 @@ var draw_scatter = function(day){
   .append("text")
     .attr("class","label")
     .attr("x", width/2)
-    .attr("y", 30)
+    .attr("y", 40)
     .style("text-anchor","end")
     .text("Time")
+    .style("font-size",20)
 
   svg.append("g")
     .attr("class","y axis")
@@ -85,6 +88,7 @@ var draw_scatter = function(day){
 
     if($($('text')[0]).text() == '1900'){$('text')[0].remove()}
 
+
     calculate_keywords(day);
 };
 
@@ -112,18 +116,6 @@ d3.csv('/assets/hn_mon_1_129am.csv',function(d){data = data.concat(d.reverse());
 
   var num_articles_each_hour = {};
   // console.log(data);
-
-  var get_keywords = function(post){
-    var words=[];
-    for(word_num=0;word_num<7;word_num++)
-    {
-      try{
-        words[word_num]=post.Keywords.match(/(\w+)/g)[1+word_num*3];
-      }
-      catch(e){}
-    }
-    return words;
-  }
 
   num_articles_each_hour = _.countBy(data, function(d){
     return d.Time_Posted;
@@ -163,9 +155,6 @@ d3.csv('/assets/hn_mon_1_129am.csv',function(d){data = data.concat(d.reverse());
     })
   })
 })
-
-
-
 
 
 // It turns out we have complete (12am to 12pm) data for Monday, Tuesday, Wednesday, Thursday, Sunday, and this Monday.

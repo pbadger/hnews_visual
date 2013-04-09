@@ -12,3 +12,12 @@ circle:hover{
   stroke: white;
   fill: steelblue;
 }
+
+svg{
+  margin-left: 20px
+}
+
+.domain{
+  stroke-width:.2em;
+  opacity: .2;
+}

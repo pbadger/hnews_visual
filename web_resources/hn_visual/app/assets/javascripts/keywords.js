@@ -51,7 +51,7 @@ var calculate_keywords = function(day){
       {return 0;}});
 
   keywords = _.countBy(keywords, function(word) {
-    return word;
+    return word.toLowerCase();
   });
 
   keywords = $.map(keywords, function (value, key){
@@ -61,13 +61,12 @@ var calculate_keywords = function(day){
 
   // console.log(keywords,4)
 
-  draw_bars(keywords.slice(0,10))
+  draw_bars(keywords.slice(0,28),day)
 
 }
 
-
-var draw_bars = function(keywords){
-  data = {};
+var draw_bars = function(keywords,day){
+  data = [];
   keywords.forEach(function(dat,i) {
     d = {};
     d.word = dat.split('_')[0];
@@ -76,24 +75,59 @@ var draw_bars = function(keywords){
   })
 
   console.log(data);
-
+  var width = 960;
+  var height = 380;
   // #ff6600 <---- ORANGE
   var chart = d3.select("body").append("svg")
     .attr("class", "chart")
-    .attr("width", 620)
-    .attr("height", 20 * 20);
+    .attr("width", 960)
+    .attr("height", height);
 
-  var x = d3.scale.linear()
-    .domain([0, 200])
-    .range([0, 420]);
+  var y = d3.scale.linear()
+    .domain([d3.max(data, function(d){return d.fre;}),0])
+    .range([280, 0]);
+
+  var xAxis = d3.svg.axis()
+  .orient("bottom");
 
   chart.selectAll("rect")
     .data(data)
   .enter().append("rect")
-    .attr("y", function(d, i) { return i * 20; })
-    .attr("width", function(d,i){return d.fre})
-    .attr("height", 20);
+    .attr("y",function(d){return 280 - y(d.fre)})
+    .attr("x", function(d, i) { return i * 35; })
+    .attr("width", 20)
+    .attr("height", function(d){return y(d.fre)})
+    .style("fill",'#ff6600')
+    .on("mouseover", function(d,i){ d3.select(d3.event.target).style("fill", "black");highlight(d.word,day);})
+    .on("mouseout", function(){d3.select(this).style("fill", "#ff6600");})
+
+  chart.append("g")
+    .attr("class","x axis")
+    .attr("transform","translate(0," + 280 + ")")
+  .append("text")
+    .attr("class","label")
+    .attr("x", width/2+30)
+    .attr("y", -240)
+    .style("text-anchor","end")
+    .text("Popular Keywords")
+    .style("font-size",20);
+
+  chart.selectAll("text")
+    .data(data)
+  .enter().append("text")
+    .attr("transform",function(d,i){return "translate(" + i*35 + " 300)" + "rotate(-90)" + " translate(10 -20)" })
+    .attr("text-anchor", "end") // text-align: right
+    // .attr("transform","rotate(90),
+    .style("font-size",15)
+    .text( function(d,i){return d.word});
+
+      
+
+  $($('svg')[1]).css("margin-left",'100px');
+  $($('svg')[0]).css("margin-left",'90px');
+  $('rect')[27].remove()
 }
+
 
 var get_keywords = function(post){
     var words=[];
