@@ -1,9 +1,14 @@
-.axis path, .axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
+circle:hover{
+  opacity: 1;
+  color:green;
+  stroke-width: 5px;
+  border: 50px solid black;
+}
+.chart{
+  background-color: #f6f6ef;
 }
 
-.dot {
-  stroke: #000;
+.chart rect{
+  stroke: white;
+  fill: steelblue;
 }
