@@ -1,7 +1,8 @@
-var data;
+var data_s;
 var words=[]; 
 
 var draw_scatter = function(day){
+  console.log("ASD")
 
   var parseDate = d3.time.format("%H-%M").parse
   var clean_date = function(date_time){
@@ -102,22 +103,22 @@ scatter.sunday;
 
 // LOADING CSVs. Note: the csv call is asynchronous,
 // so this ordering ensures the csvs get loaded in correct order. 
-var data = []
-d3.csv('/assets/hn_mon_1_129am.csv',function(d){data = data.concat(d.reverse());
-  d3.csv('/assets/hn_mon_1_129pm.csv',function(d){data = data.concat(d.reverse());
-    d3.csv('/assets/hn_tues_156am.csv',function(d){data = data.concat(d.reverse());
-      d3.csv('/assets/hn_tues_203pm.csv',function(d){data = data.concat(d.reverse());
-        d3.csv('/assets/hn_wed_203am.csv',function(d){data = data.concat(d.reverse());
-          d3.csv('/assets/hn_thurs_203am.csv',function(d){data = data.concat(d.reverse());
-            d3.csv('/assets/hn_fri_103am.csv',function(d){data = data.concat(d.reverse());
-              d3.csv('/assets/hn_sun_300am.csv',function(d){data = data.concat(d.reverse());
-                d3.csv('/assets/hn_mon_2_202am.csv',function(d){data = data.concat(d.reverse())
+var data_s = []
+d3.csv('/assets/hn_mon_1_129am.csv',function(d){data_s = data_s.concat(d.reverse());
+  d3.csv('/assets/hn_mon_1_129pm.csv',function(d){data_s = data_s.concat(d.reverse());
+    d3.csv('/assets/hn_tues_156am.csv',function(d){data_s = data_s.concat(d.reverse());
+      d3.csv('/assets/hn_tues_203pm.csv',function(d){data_s = data_s.concat(d.reverse());
+        d3.csv('/assets/hn_wed_203am.csv',function(d){data_s = data_s.concat(d.reverse());
+          d3.csv('/assets/hn_thurs_203am.csv',function(d){data_s = data_s.concat(d.reverse());
+            d3.csv('/assets/hn_fri_103am.csv',function(d){data_s = data_s.concat(d.reverse());
+              d3.csv('/assets/hn_sun_300am.csv',function(d){data_s = data_s.concat(d.reverse());
+                d3.csv('/assets/hn_mon_2_202am.csv',function(d){data_s = data_s.concat(d.reverse())
               
 
   var num_articles_each_hour = {};
-  // console.log(data);
+  // console.log(data_s);
 
-  num_articles_each_hour = _.countBy(data, function(d){
+  num_articles_each_hour = _.countBy(data_s, function(d){
     return d.Time_Posted;
   });
 
@@ -125,7 +126,7 @@ d3.csv('/assets/hn_mon_1_129am.csv',function(d){data = data.concat(d.reverse());
   var article_counter = 0;
   var current_time = 0;
 
-  data.forEach(function(d) {
+  data_s.forEach(function(d) {
     if(d.Time_Posted != current_time){
       article_counter = 0;
     }
@@ -136,13 +137,13 @@ d3.csv('/assets/hn_mon_1_129am.csv',function(d){data = data.concat(d.reverse());
     d.keywords = get_keywords(d);
   });
 
-  var grouped_data = _.groupBy(data, function(d){ return d.date_time.split(' ')[0]});
-  scatter.monday = grouped_data['01'];
-  scatter.tuesday = grouped_data['02'];
-  scatter.wednesday = grouped_data['03'];
-  scatter.thursday = grouped_data['04']
-  scatter.friday = grouped_data['05']
-  scatter.sunday = grouped_data['07']
+  var grouped_data_s = _.groupBy(data_s, function(d){ return d.date_time.split(' ')[0]});
+  scatter.monday = grouped_data_s['01'];
+  scatter.tuesday = grouped_data_s['02'];
+  scatter.wednesday = grouped_data_s['03'];
+  scatter.thursday = grouped_data_s['04']
+  scatter.friday = grouped_data_s['05']
+  scatter.sunday = grouped_data_s['07']
 
   // console.log(window[day])
                 

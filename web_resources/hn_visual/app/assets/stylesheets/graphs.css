@@ -21,3 +21,53 @@ svg{
   stroke-width:.2em;
   opacity: .2;
 }
+
+
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.csv
+{
+  display: none;
+}
+
+.chart rect {
+  stroke: white;
+  fill: steelblue;
+  
+}
+
+.chart rect:hover {
+  stroke: black;
+}
+
+.container {
+  padding: 5px;
+  float: left;
+  border: 1px;
+  border-color: #736F6E;
+}
+
+#side {
+  padding: 5px;
+  float: left;
+  width: 300px;
+}

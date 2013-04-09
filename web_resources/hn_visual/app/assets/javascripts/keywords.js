@@ -66,7 +66,7 @@ var calculate_keywords = function(day){
 }
 
 var draw_bars = function(keywords,day){
-  data = [];
+  var data = [];
   keywords.forEach(function(dat,i) {
     d = {};
     d.word = dat.split('_')[0];
