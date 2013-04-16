@@ -1,13 +1,21 @@
 var data_s;
 var words=[]; 
 
-var draw_scatter = function(day){
-  console.log("ASD")
+var scatter = {};
+scatter.fill_tooltip = function(d){console.log(d)}
+scatter.tooltip;
+scatter.tuesday;
+scatter.wednesday;
+scatter.thursday;
+scatter.friday;
+scatter.sunday;
 
+var draw_scatter = function(day){
+  
   var parseDate = d3.time.format("%H-%M").parse
-  var clean_date = function(date_time){
-    var hour = date_time.split(" ")[2].split(":")[0];
-    var minute = date_time.split(" ")[3];
+  var clean_date = function(date_time2){
+    var hour = date_time2.split(" ")[2].split(":")[0];
+    var minute = date_time2.split(" ")[3];
     return hour +"-"+ minute;
   }
 
@@ -19,9 +27,11 @@ var draw_scatter = function(day){
     .range([0, width])
     .domain(d3.extent(scatter[day], function(d) { return parseDate(clean_date(d.date_time)) }))
 
+  console.log(d3.extent(scatter[day], function(d) { return parseDate(clean_date(d.date_time)) }),"sasda")
+
   var y = d3.scale.linear()
-      .range([height, 0])
-      .domain(d3.extent(scatter[day], function(d) { return parseInt(d.Points) }));
+    .range([height, 0])
+    .domain(d3.extent(scatter[day], function(d) { return parseInt(d.Points) }));
 
   var color = d3.scale.category10();
 
@@ -40,7 +50,7 @@ var draw_scatter = function(day){
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  scatter['svg'] =svg;
+  scatter['svg'] = svg;
 
   svg.append("g")
     .attr("class","x axis")
@@ -84,24 +94,15 @@ var draw_scatter = function(day){
     .attr('opacity', function(d){
       return Math.log(d.Points)/8 + 0.13;
     })
-    .on("mouseover", function(d,i){ d3.select(d3.event.target).attr('r',6.5); })
+    .on("mouseover", function(d,i){ d3.select(d3.event.target).attr('r',6.5);scatter.fill_tooltip(d)})
     .on("mouseout", function(){d3.select(this).attr('r',3.5); })
     .append("svg:title")
       .text(function(d, i) { return d.Title; })
 
-    if($($('text')[0]).text() == '1900'){$('text')[0].remove()}
-
+    $('.scatter_plot .tick')[0].remove()
 
     calculate_keywords(day);
 };
-
-var scatter = {};
-scatter.tooltip;
-scatter.tuesday;
-scatter.wednesday;
-scatter.thursday;
-scatter.friday;
-scatter.sunday;
 
 // LOADING CSVs. Note: the csv call is asynchronous,
 // so this ordering ensures the csvs get loaded in correct order. 
@@ -117,37 +118,37 @@ d3.csv('/assets/hn_mon_1_129am.csv',function(d){data_s = data_s.concat(d.reverse
                 d3.csv('/assets/hn_mon_2_202am.csv',function(d){data_s = data_s.concat(d.reverse())
               
 
-  var num_articles_each_hour = {};
-  // console.log(data_s);
+                  var num_articles_each_hour = {};
+                  // console.log(data_s);
 
-  num_articles_each_hour = _.countBy(data_s, function(d){
-    return d.Time_Posted;
-  });
+                  num_articles_each_hour = _.countBy(data_s, function(d){
+                    return d.Time_Posted;
+                  });
 
 
-  var article_counter = 0;
-  var current_time = 0;
+                  var article_counter = 0;
+                  var current_time = 0;
 
-  data_s.forEach(function(d) {
-    if(d.Time_Posted != current_time){
-      article_counter = 0;
-    }
-    else{article_counter += 1;}
-    current_time = d.Time_Posted;
+                  data_s.forEach(function(d) {
+                    if(d.Time_Posted != current_time){
+                      article_counter = 0;
+                    }
+                    else{article_counter += 1;}
+                    current_time = d.Time_Posted;
 
-    d.date_time = d.Time_Posted + " " + Math.ceil(60/(num_articles_each_hour[d.Time_Posted])*article_counter);
-    d.keywords = get_keywords(d);
-  });
+                    d.date_time = d.Time_Posted + " " + Math.ceil(60/(num_articles_each_hour[d.Time_Posted])*article_counter);
+                    d.keywords = get_keywords(d);
+                  });
 
-  var grouped_data_s = _.groupBy(data_s, function(d){ return d.date_time.split(' ')[0]});
-  scatter.monday = grouped_data_s['01'];
-  scatter.tuesday = grouped_data_s['02'];
-  scatter.wednesday = grouped_data_s['03'];
-  scatter.thursday = grouped_data_s['04']
-  scatter.friday = grouped_data_s['05']
-  scatter.sunday = grouped_data_s['07']
+                  var grouped_data_s = _.groupBy(data_s, function(d){ return d.date_time.split(' ')[0]});
+                  scatter.monday = grouped_data_s['01'];
+                  scatter.tuesday = grouped_data_s['02'];
+                  scatter.wednesday = grouped_data_s['03'];
+                  scatter.thursday = grouped_data_s['04']
+                  scatter.friday = grouped_data_s['05']
+                  scatter.sunday = grouped_data_s['07']
 
-  // console.log(window[day])
+                  // console.log(window[day])
                 
                 })
               })
@@ -158,7 +159,6 @@ d3.csv('/assets/hn_mon_1_129am.csv',function(d){data_s = data_s.concat(d.reverse
     })
   })
 })
-
 
 // It turns out we have complete (12am to 12pm) data for Monday, Tuesday, Wednesday, Thursday, Sunday, and this Monday.
 // We have partial data for the other days but we're missing too many hours. Sorry about that, I accidentally 

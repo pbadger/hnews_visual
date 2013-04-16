@@ -6,6 +6,7 @@ circle:hover{
 }
 .chart{
   background-color: #f6f6ef;
+  margin-left: 60px;
 }
 
 .chart rect{
