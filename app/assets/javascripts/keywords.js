@@ -71,11 +71,6 @@ var draw_bars = function(keywords,day){
     data[i] = d;
   })
 
-  var fill_tooltip = function(d){
-    console.log(d);
-  }
-
-  console.log(data);
   var width = 960;
   var height = 380;
   // #ff6600 <---- ORANGE
@@ -115,8 +110,6 @@ var draw_bars = function(keywords,day){
       d3.select(d3.event.target).style("fill", "black");highlight(d.word,day);
     })
     .on("mouseout", function(){d3.select(this).style("fill", "#ff6600");})
-
-  $('.scatter_plot a').mouseover(function(e){console.log(e)});
 
   chart.append("g")
     .attr("class","y axis")
