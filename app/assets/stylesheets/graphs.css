@@ -79,3 +79,7 @@ body {
 #bar{
   height: 300px;
 }
+
+.modal-header,.modal-footer{
+  text-align: center;
+}
