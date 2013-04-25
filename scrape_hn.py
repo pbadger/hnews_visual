@@ -9,7 +9,7 @@ from datetime import timedelta
 from pattern.web import URL, DOM, plaintext, strip_between
 from pattern.web import NODE, TEXT, COMMENT, ELEMENT, DOCUMENT
 
-output = open("hn_mon_202am.csv", "wb")
+output = open("hn_wed_17_930pm.csv", "wb")
 writer = csv.writer(output)
 writer.writerow(["Title", "Points", "Url", "Time_Posted", "Keywords"])
 
@@ -87,7 +87,7 @@ while end_scrape == False:
       else:
         hours_since_post = 1
     # NOTE: THE FOLLOWING 23 REFERS TO THE NUMBER OF HOURS, AND ASSUMES THIS WILL BE RUN AT 1AM 
-    if hours_since_post < 23:
+    if hours_since_post < 24:
       diff = timedelta(hours=hours_since_post)
       time_posted = datetime.now() - diff
       time_parsed = time_posted.strftime("%d %m %H:00")
@@ -118,7 +118,7 @@ while end_scrape == False:
         for t_word in title_words:
           if word not in stop_list:
             count[word] += top_word_number
-        common_words = count.most_common(7)
+        common_words = count.most_common(10)
         # CHECK FOR PLURALS? 
       except:
         pass

@@ -2,6 +2,16 @@
 <html>
   <head>
     <title>A Snapshot of Hacker News</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css">
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+	<script>
+	  $(function() {
+		$( document ).tooltip({ position: { my: "left+500 top-50", at: "right center" } });
+	  });
+	</script>
   </head>
 
   <body>
@@ -3685,15 +3695,15 @@ I emailed Tim Cook,4,http://xindustries.wordpress.com/2013/04/04/i-emailed-tim-c
 
 		color.domain(["monday","tuesday","wednesday","thursday"]);
 		
-		var legend = d3.select("body").append("div")
+		//var legend = d3.select("body").append("div")
 			//.attr("class", "container")
-			.attr("id", "side");
+			//.attr("id", "side");
 		
 		var sums = new Array();
 		var data = ""; 
 		color.domain().forEach(function(d) {
-			legend.append("p").text(d)
-				.style("color", color(d));
+			//legend.append("p").text(d)
+				//.style("color", color(d));
 			data = document.getElementById(d+"_csv").value;
 			data = data.split("\n");
 			data.splice(0,2);
@@ -3712,7 +3722,6 @@ I emailed Tim Cook,4,http://xindustries.wordpress.com/2013/04/04/i-emailed-tim-c
 				}
 			});
 		});
-			
 		var days = new Array(color.domain().length);
 		for(var i=0; i < days.length; i++) {
 			days[i] = sums.splice(0,24);
@@ -3749,6 +3758,7 @@ I emailed Tim Cook,4,http://xindustries.wordpress.com/2013/04/04/i-emailed-tim-c
 		  .attr("class", "line")
 		  .attr("id", function(d) { return color.domain()[days.indexOf(d)]; })
 		  .attr("d", line)
+		  .attr("title", function(d) {return color.domain()[days.indexOf(d)]})
 		  .on("mouseover", hover)
 		  .on("mouseout", exit)
 		  .on("click", click)
@@ -3757,14 +3767,20 @@ I emailed Tim Cook,4,http://xindustries.wordpress.com/2013/04/04/i-emailed-tim-c
 		
 		function hover(d) {
 			var id = color.domain()[days.indexOf(d)];
-			var path = d3.select("#"+id);
-			path.style("stroke", "black");
+			color.domain().forEach(function(d) {
+				if(id == d) return true;
+				d3.select("#"+d).style("stroke", "#E6E8FA");
+			});
+			
+			$( document ).tooltip();
 		}
 		
 		function exit(d) {
 			var id = color.domain()[days.indexOf(d)];
-			var path = d3.select("#"+id);
-			path.style("stroke", color(color.domain()[days.indexOf(d)]));
+			color.domain().forEach(function(d) {
+				if(id == d) return true;
+				d3.select("#"+d).style("stroke", color(d));
+			});
 		}
 		
 		var clicked = false;
