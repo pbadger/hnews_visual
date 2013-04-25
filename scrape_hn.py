@@ -28,7 +28,7 @@ stop_list = ['1','2','3','4','5','6','7','8','9','10','a','able','about','above'
 'anybody','anyhow','anyone','anything','anyway','anyways','anywhere','apart','appear','appreciate','appropriate','are','aren',
 'around','as','aside','ask','asking','associated','at','available','away','awfully','b','be','became','because','become','becomes',
 'becoming','been','before','beforehand','behind','being','believe','below','beside','besides','best','better','between','beyond',
-'both','brief','but','by','c','c','c','came','can','can','cannot','cant','cause','causes','certain','certainly','changes','clearly',
+'both','brief','but','by','c','came','can','can','cannot','cant','cause','causes','certain','certainly','changes','clearly',
 'co','com','come','comes','concerning','consequently','consider','considering','contain','containing','contains','corresponding',
 'could','couldn','course','currently','d','definitely','described','despite','did','different','do','does','doing','done','down',
 'downwards','during','e','each','edu','eg','eight','either','else','elsewhere','enough','entirely','especially','et','etc','even',
@@ -61,6 +61,7 @@ stop_list = ['1','2','3','4','5','6','7','8','9','10','a','able','about','above'
 
 article_number = 0
 end_scrape = False
+
 while end_scrape == False:
   for post_index in range(1,31):
     article_number += 1

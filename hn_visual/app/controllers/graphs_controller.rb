@@ -2,12 +2,12 @@ class GraphsController < ApplicationController
   # GET /graphs
   # GET /graphs.json
   def index
-    @graphs = Graph.all
+    # @graphs = Graph.all
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @graphs }
-    end
+    # respond_to do |format|
+    #   format.html # index.html.erb
+    #   format.json { render json: @graphs }
+    # end
   end
 
   # GET /graphs/1

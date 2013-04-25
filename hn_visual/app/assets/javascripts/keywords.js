@@ -22,7 +22,7 @@ var stop_words = ['100','able','about','above','according','accordingly','across
 'per','perhaps','placed','please','plus','possible','presumably','probably','provides','que','quite','rather',
 'really','reasonably','regarding','regardless','regards','relatively','respectively','right','said','same','saw','say',
 'saying','says','second','secondly','see','seeing','seem','seemed','seeming','seems','seen','self','selves','sensible','sent',
-'serious','seriously','seven','several','shall','she','should ','since','six','some','somebody','somehow','someone','something',
+'serious','seriously','seven','several','shall','she','should','since','six','some','somebody','somehow','someone','something',
 'sometime','sometimes','somewhat','somewhere','soon','sorry','specified','specify','specifying','still','sub','such','sup','sure',
 'take','taken','tell','tends','th','than','thank','thanks','thanx','that','thats','the','their','theirs','them','themselves',
 'then','thence','there','thereafter','thereby','therefore','therein','theres','thereupon','these','they','think','third','this',
@@ -32,17 +32,15 @@ var stop_words = ['100','able','about','above','according','accordingly','across
 'wants','was','way','we','well','went','were','weren','what','whatever','when','whence','whenever','where','whereafter','whereas',
 'whereby','wherein','whereupon','wherever','whether','which','while','whither','who','whoever','whole','whom','whose','why','will',
 'willing','wish','with','within','without','won','wonder','would','would','wouldn','yes','yet','you','your','yours',
-'yourself','yourselves','zero']
+'yourself','yourselves','zero','find','don']
 
 
 var calculate_keywords = function(day){
-  // console.log(scatter[day])
   var data = scatter[day]
   var keywords = [];
   _.each(data, function(d){
     keywords = keywords.concat(get_keywords(d),d.Title.match(/(\w+)/g),d.Title.match(/(\w+)/g))
   });
-  // console.log(keywords,2);
   
   keywords = _.filter(keywords, function(word){
     if(word)
@@ -59,13 +57,12 @@ var calculate_keywords = function(day){
 
   keywords = _.sortBy(keywords, function(string){ return -string.split("_")[1]});
 
-  // console.log(keywords,4)
-
   draw_bars(keywords.slice(0,28),day)
 
 }
 
 var draw_bars = function(keywords,day){
+  
   var data = [];
   keywords.forEach(function(dat,i) {
     d = {};
@@ -74,53 +71,69 @@ var draw_bars = function(keywords,day){
     data[i] = d;
   })
 
-  console.log(data);
   var width = 960;
   var height = 380;
   // #ff6600 <---- ORANGE
   var chart = d3.select("body").append("svg")
     .attr("class", "chart")
-    .attr("width", 960)
-    .attr("height", height);
+    .attr("width", 1160)
+    .attr("height", height+20);
 
   var y = d3.scale.linear()
-    .domain([d3.max(data, function(d){return d.fre;}),0])
-    .range([280, 0]);
+    .domain([0,d3.max(data, function(d){return d.fre;})])
+    .range([300, 0]);
 
   var xAxis = d3.svg.axis()
-  .orient("bottom");
+    .orient("bottom");
+
+  var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left")
+
+  chart.selectAll("text")
+    .data(data)
+  .enter().append("text")
+    .attr("transform",function(d,i){return "translate(" + (i+6)*35 + " 340)" + "rotate(-90)" + " translate(10 -20)" })
+    .attr("text-anchor", "end")
+    .style("font-size",15)
+    .text(function(datum,i){return datum.word})
 
   chart.selectAll("rect")
     .data(data)
   .enter().append("rect")
-    .attr("y",function(d){return 280 - y(d.fre)})
-    .attr("x", function(d, i) { return i * 35; })
+    .attr("y",function(d){console.log(y(d.fre));return 20 + y(d.fre);})
+    .attr("x", function(d, i) { return (i+5) * 35; })
     .attr("width", 20)
-    .attr("height", function(d){return y(d.fre)})
+    .attr("height", function(d){return 300 - y(d.fre)})
     .style("fill",'#ff6600')
-    .on("mouseover", function(d,i){ d3.select(d3.event.target).style("fill", "black");highlight(d.word,day);})
+    .on("mouseover", function(d,i){
+      d3.select(d3.event.target).style("fill", "black");highlight(d.word,day);
+    })
     .on("mouseout", function(){d3.select(this).style("fill", "#ff6600");})
+
+  chart.append("g")
+    .attr("class","y axis")
+    .attr("transform","translate(170,20)")
+    .call(yAxis) 
+  .append("text")
+    .attr("class","label")
+    .attr("x", -160)
+    .attr("y", 140)
+    .text("Word Frequency")
+    .style("font-size",15)
 
   chart.append("g")
     .attr("class","x axis")
     .attr("transform","translate(0," + 280 + ")")
   .append("text")
     .attr("class","label")
-    .attr("x", width/2+30)
+    .attr("x", width/2 + 270)
     .attr("y", -240)
     .style("text-anchor","end")
-    .text("Popular Keywords")
+    .text("Popular Keywords by Frequency*")
     .style("font-size",20);
 
-  chart.selectAll("text")
-    .data(data)
-  .enter().append("text")
-    .attr("transform",function(d,i){return "translate(" + i*35 + " 300)" + "rotate(-90)" + " translate(10 -20)" })
-    .attr("text-anchor", "end") // text-align: right
-    // .attr("transform","rotate(90),
-    .style("font-size",15)
-    .text( function(d,i){return d.word});
-
+  console.log(data)
 }
 
 
