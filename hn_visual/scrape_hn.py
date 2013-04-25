@@ -9,7 +9,7 @@ from datetime import timedelta
 from pattern.web import URL, DOM, plaintext, strip_between
 from pattern.web import NODE, TEXT, COMMENT, ELEMENT, DOCUMENT
 
-output = open("hn_wed_17_930pm.csv", "wb")
+output = open("hn_thurs_18_230pm.csv", "wb")
 writer = csv.writer(output)
 writer.writerow(["Title", "Points", "Url", "Time_Posted", "Keywords"])
 
@@ -28,7 +28,7 @@ stop_list = ['1','2','3','4','5','6','7','8','9','10','a','able','about','above'
 'anybody','anyhow','anyone','anything','anyway','anyways','anywhere','apart','appear','appreciate','appropriate','are','aren',
 'around','as','aside','ask','asking','associated','at','available','away','awfully','b','be','became','because','become','becomes',
 'becoming','been','before','beforehand','behind','being','believe','below','beside','besides','best','better','between','beyond',
-'both','brief','but','by','c','came','can','can','cannot','cant','cause','causes','certain','certainly','changes','clearly',
+'both','brief','but','by','c','c','c','came','can','can','cannot','cant','cause','causes','certain','certainly','changes','clearly',
 'co','com','come','comes','concerning','consequently','consider','considering','contain','containing','contains','corresponding',
 'could','couldn','course','currently','d','definitely','described','despite','did','different','do','does','doing','done','down',
 'downwards','during','e','each','edu','eg','eight','either','else','elsewhere','enough','entirely','especially','et','etc','even',
@@ -61,7 +61,6 @@ stop_list = ['1','2','3','4','5','6','7','8','9','10','a','able','about','above'
 
 article_number = 0
 end_scrape = False
-
 while end_scrape == False:
   for post_index in range(1,31):
     article_number += 1
@@ -86,8 +85,8 @@ while end_scrape == False:
         hours_since_post = 0
       else:
         hours_since_post = 1
-    # NOTE: THE FOLLOWING 23 REFERS TO THE NUMBER OF HOURS, AND ASSUMES THIS WILL BE RUN AT 1AM 
-    if hours_since_post < 24:
+    # NOTE: THE FOLLOWING 6 REFERS TO THE NUMBER OF HOURS, AND ASSUMES THIS WILL Finish AT 230AM 
+    if hours_since_post < 6:
       diff = timedelta(hours=hours_since_post)
       time_posted = datetime.now() - diff
       time_parsed = time_posted.strftime("%d %m %H:00")
