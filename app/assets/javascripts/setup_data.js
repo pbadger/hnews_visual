@@ -1,4 +1,5 @@
-days = ['monday1','tuesday1','wednesday','thursday','friday','saturday','sunday','monday2','tuesday2']
+days = ['monday1','tuesday1','wednesday','thursday','friday','saturday','sunday','monday2','tuesday2',
+'wednesday2','thursday2','friday2','saturday2','sunday2']
 
 function get_total_keyword_frequency(keywords){
   _.each(days, function(day){
