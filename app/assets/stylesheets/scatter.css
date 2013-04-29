@@ -1,6 +1,3 @@
-svg{
-  margin-left: 120px;
-}
 .tooltip{
   display: none;
   position: absolute;
@@ -27,7 +24,6 @@ circle:hover{
 
 .chart{
   background-color: #f6f6ef;
-  margin-left: 60px;
 }
 .chart rect:hover {
   stroke: black;

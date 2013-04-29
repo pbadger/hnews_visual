@@ -27,14 +27,12 @@ var draw_scatter = function(day){
   }
 
   var margin = {top: 20, right: 20, bottom: 60, left: 40},
-    width = 960 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
-
-console.log(data);
+    width = 700 - margin.left - margin.right,
+    height = 275 - margin.top - margin.bottom;
 
   var x = d3.time.scale()
     .range([0, width])
-    .domain(d3.extent(data.day, function(d) { return parseDate(clean_date(d.date_time)) }))
+    .domain(d3.extent(data[day], function(d) { return parseDate(clean_date(d.date_time)) }))
 
   var y = d3.scale.linear()
     .range([height, 0])
@@ -116,6 +114,3 @@ console.log(data);
       $('#scatter_tt').offset({top: mouse_top-50, left: mouse_left})
     });
 };
-
-console.log(data);
-//scatter.data = data;

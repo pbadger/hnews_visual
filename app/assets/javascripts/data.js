@@ -34,6 +34,8 @@ d3.csv('/assets/mon_15_to_fri_19.csv',function(d){console.log(d);data = data.con
         data.monday2 = grouped_data['22'];
         data.tuesday2 = grouped_data['23'];
         // console.log(window[day])
+
+        draw_scatter("wednesday");
       })
     })
   })
