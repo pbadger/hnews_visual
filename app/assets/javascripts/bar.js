@@ -66,7 +66,7 @@ function draw_bar(theme){
 
   var y = d3.scale.linear()
     .domain([0,d3.max(data, function(d){return d.fre;})])
-    .range([height-20, 0]);
+    .range([height-40, 0]);
 
   var xAxis = d3.svg.axis()
     .orient("bottom");
@@ -78,18 +78,18 @@ function draw_bar(theme){
   chart.selectAll("text")
     .data(data)
   .enter().append("text")
-    .attr("transform",function(d,i){return "translate(" + (i+1)*35 + " 260)" + "rotate(-90)" + " translate(10 -20)" })
+    .attr("transform",function(d,i){return "translate(" + (i+3)*35 + " 250)" + "rotate(-40)" + " translate(-15 -20)" })
     .attr("text-anchor", "end")
-    .style("font-size",15)
+    .style("font-size",10)
     .text(function(datum,i){return datum.word})
 
   chart.selectAll("rect")
     .data(data)
   .enter().append("rect")
-    .attr("y",function(d){ return -10 + y(d.fre);})
-    .attr("x", function(d, i) { return (i) * 35; })
+    .attr("y",function(d){ return y(d.fre);})
+    .attr("x", function(d, i) { return (i+2) * 35; })
     .attr("width", 20)
-    .attr("height", function(d){return 255 - y(d.fre)})
+    .attr("height", function(d){return 235 - y(d.fre)})
     .style("fill",'#ff6600')
     .on("mouseover", function(d,i){
       d3.select(d3.event.target).style("fill", "black");//highlight(d.word,day);
@@ -98,22 +98,23 @@ function draw_bar(theme){
 
   chart.append("g")
     .attr("class","y axis")
-    //.attr("transform","translate(170,20)")
+    .attr("transform","translate(60 0)")
     .call(yAxis) 
-  //.append("text")
-    //.attr("class","label")
-    //.attr("x", -160)
-    //.attr("y", 140)
-    //.text("Word Frequency")
-    //.style("font-size",15)
+  .append("text")
+    .attr("class","label")
+    .attr("x", -180)
+    .attr("y", -40)
+    .attr("transform", "rotate(-90)")
+    .text("Word Frequency")
+    .style("font-size",15)
 
   chart.append("g")
     .attr("class","x axis")
     .attr("transform","translate(0," + 280 + ")")
   .append("text")
     .attr("class","label")
-    .attr("x", width/2 + 270)
-    .attr("y", -240)
+    .attr("x", width/2 + 180)
+    .attr("y", -260)
     .style("text-anchor","end")
     .text("Popular Keywords by Frequency*")
     .style("font-size",20);
