@@ -32,11 +32,11 @@ var draw_scatter = function(day){
 
   var x = d3.time.scale()
     .range([0, width])
-    .domain(d3.extent(data[day], function(d) { return parseDate(clean_date(d.date_time)) }))
+    .domain(d3.extent(total_data[day], function(d) { return parseDate(clean_date(d.date_time)) }))
 
   var y = d3.scale.linear()
     .range([height, 0])
-    .domain(d3.extent(data[day], function(d) { return parseInt(d.Points) }));
+    .domain(d3.extent(total_data[day], function(d) { return parseInt(d.Points) }));
 
   var color = d3.scale.category10();
 
@@ -114,3 +114,7 @@ var draw_scatter = function(day){
       $('#scatter_tt').offset({top: mouse_top-50, left: mouse_left})
     });
 };
+<<<<<<< HEAD
+=======
+
+>>>>>>> 34e01b0cade8a9dc6d3ef025e40ea3fd703f4e36

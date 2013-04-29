@@ -36,8 +36,7 @@ var stop_words = ['100','able','about','above','according','accordingly','across
 
 
 var calculate_keywords = function(day){
-  console.log("calc keywords = " + data);
-  var data = data[day]
+  var data = total_data[day]
   var keywords = [];
   _.each(data, function(d){
     keywords = keywords.concat(get_keywords(d),d.Title.match(/(\w+)/g),d.Title.match(/(\w+)/g))
