@@ -21,10 +21,6 @@ circle:hover{
   border: 50px solid black;
 }
 
-
-.chart{
-  background-color: #f6f6ef;
-}
 .chart rect:hover {
   stroke: black;
 }
