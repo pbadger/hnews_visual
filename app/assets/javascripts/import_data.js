@@ -33,7 +33,7 @@ d3.csv('/assets/mon_15_to_fri_19.csv',function(d){total_data = total_data.concat
         total_data.sunday = grouped_data['21'];
         total_data.monday2 = grouped_data['22'];
         total_data.tuesday2 = grouped_data['23'];
-        // console.log(window[day])
+
         setup_themes();
       })
     })
