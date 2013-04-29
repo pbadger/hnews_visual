@@ -47,8 +47,46 @@ body {
   border-radius: 10px;
   width: 75px;
 }
+#main{
+  height: auto;
+  width: 1248px;
+  margin-left: auto;
+  margin-right: auto;
+}
 #bar{
-  height: 300px;
+  background-color: #eeeeee;
+  border-radius: 5px;
+  border: 2px solid;
+  height: 275px;
+  width: 500px;
+  margin: 5px;
+  margin-bottom: 10px;
+  padding: 5px;
+  float: left;
+}
+
+#scatter{
+  background-color: #eeeeee;
+  border-radius: 5px;
+  border: 2px solid;
+  height: 275px;
+  width: 700px;
+  margin: 5px;
+  margin-bottom: 10px;
+  padding: 5px;
+  float: left;
+}
+
+#stream{
+  background-color: #eeeeee;
+  border-radius: 5px;
+  clear: both;
+  display: block;
+  border: 2px solid;
+  width: 1225px;
+  height: 275px;
+  margin: 5px;
+  padding: 5px;
 }
 
 .modal{

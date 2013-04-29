@@ -1,40 +1,43 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <title>A Snapshot of Hacker News</title>
   </head>
 
   <body>
-	<h1><center>A Snapshot of Hacker News</center></h1>
+		<h1><center>A Snapshot of Hacker News</center></h1>
+	  <div id="main">	
+	  	<div id="bar">
+	  	</div>
+	  	<div id="scatter">
+	  	</div>
+	  	<div id="stream">
+	  	</div>
+	  </div> 
+  	<div class="keyword_explanation">
+  		This bar graph shows the frequency of the most common keywords across articles. These are simply the most common words, aggregated from all articles, with common <a href="http://en.wikipedia.org/wiki/Stop_word">'stop words'</a> filtered out.
+  	</div>   
 
-	<textarea class="csv" id="monday_csv"> 
-		<%= render 'brians_csv' %>
-	</textarea>
 
-	<div class="keyword_explanation">
-		This bar graph shows the frequency of the most common keywords across articles. These are simply the most common words, aggregated from all articles, with common <a href="http://en.wikipedia.org/wiki/Stop_word">'stop words'</a> filtered out.
-	</div>
+    <div class="modal hide fade" id='video_modal'>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h2>Whats going on here?</h2>
+      </div>
+      <div class="modal-body">
+        <object width="420" height="315"><param name="movie" value="http://www.youtube.com/v/BNAUi9e4RRg?version=3&amp;hl=en_US"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/BNAUi9e4RRg?version=3&amp;hl=en_US" type="application/x-shockwave-flash" width="504" height="378" allowscriptaccess="always" allowfullscreen="true"></embed></object>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#video_modal">Lemme see it!</a>
+      </div>
+    </div>  
 
-
-  <div class="modal hide fade" id='video_modal'>
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-      <h2>Whats going on here?</h2>
+    <div class="tooltip" id="scatter_tt">
+      <div class="tt_title">
+      </div>
+      <div class="tt_points">
+      </div>
     </div>
-    <div class="modal-body">
-      <object width="420" height="315"><param name="movie" value="http://www.youtube.com/v/BNAUi9e4RRg?version=3&amp;hl=en_US"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/BNAUi9e4RRg?version=3&amp;hl=en_US" type="application/x-shockwave-flash" width="504" height="378" allowscriptaccess="always" allowfullscreen="true"></embed></object>
-    </div>
-    <div class="modal-footer">
-      <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#video_modal">Lemme see it!</a>
-    </div>
-  </div>
-
-  <div class="tooltip" id="scatter_tt">
-    <div class="tt_title">
-    </div>
-    <div class="tt_points">
-    </div>
-  </div>
 
 	<script>
     if (document.cookie != 'seen_video')
@@ -43,7 +46,9 @@
       document.cookie = 'seen_video';
     }
 
-		var parseDate = d3.time.format("%d %m %H:%M").parse;
+    draw_scatter("wednesday");
+
+	/*	var parseDate = d3.time.format("%d %m %H:%M").parse;
 		var color = d3.scale.category10();
 		color.domain(["monday","tuesday","wednesday","thursday"]);
 
@@ -249,10 +254,10 @@
 		
 		function barExit(d) {
 			d3.select("#tooltip").remove();
-		}
-	</script>	
+		} */
+	</script>
 	
 
 
 	</body>
-</html> -->
+</html>

@@ -33,5 +33,6 @@ circle:hover{
   stroke: black;
 }
 .keyword_explanation{
+  display: block;
   display:none;
 }
