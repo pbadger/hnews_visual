@@ -30,15 +30,15 @@ var draw_scatter = function(day){
     width = 960 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
-console.log(data);
+  console.log(total_data);
 
   var x = d3.time.scale()
     .range([0, width])
-    .domain(d3.extent(data.day, function(d) { return parseDate(clean_date(d.date_time)) }))
+    .domain(d3.extent(total_data.day, function(d) { return parseDate(clean_date(d.date_time)) }))
 
   var y = d3.scale.linear()
     .range([height, 0])
-    .domain(d3.extent(data[day], function(d) { return parseInt(d.Points) }));
+    .domain(d3.extent(total_data[day], function(d) { return parseInt(d.Points) }));
 
   var color = d3.scale.category10();
 
@@ -117,5 +117,3 @@ console.log(data);
     });
 };
 
-console.log(data);
-//scatter.data = data;
