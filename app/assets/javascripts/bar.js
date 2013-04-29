@@ -34,9 +34,9 @@ var stop_words = ['100','able','about','above','according','accordingly','across
 'willing','wish','with','within','without','won','wonder','would','would','wouldn','yes','yet','you','your','yours',
 'yourself','yourselves','zero','find','don']
 
-stop_words = _.filter(keywords, function(word){
-  word.length > 2;  
-}
+stop_words = _.filter(stop_words, function(word){
+  return word.length > 2;  
+});
 
 // var keywords = [];
 //   _.each(data, function(d){
