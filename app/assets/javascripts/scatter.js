@@ -16,14 +16,17 @@ scatter.friday;
 scatter.sunday;
 
 
-
-var draw_scatter = function(day){
+function draw_scatter(theme){
+  var articles = get_theme(theme).articles;
+  console.log(articles);
   
-  var parseDate = d3.time.format("%H-%M").parse
+  var parseDate = d3.time.format("%m-%d-%H-%M").parse
   var clean_date = function(date_time2){
+    var month = date_time2.split(" ")[1];
+    var day = date_time2.split(" ")[0];
     var hour = date_time2.split(" ")[2].split(":")[0];
     var minute = date_time2.split(" ")[3];
-    return hour +"-"+ minute;
+    return month + "-" + day + "-" + hour +"-"+ minute;
   }
 
   var margin = {top: 20, right: 20, bottom: 60, left: 40},
@@ -32,11 +35,11 @@ var draw_scatter = function(day){
 
   var x = d3.time.scale()
     .range([0, width])
-    .domain(d3.extent(total_data[day], function(d) { return parseDate(clean_date(d.date_time)) }))
+    .domain(d3.extent(articles, function(d) { return parseDate(clean_date(d.date_time)) }))
 
   var y = d3.scale.linear()
     .range([height, 0])
-    .domain(d3.extent(total_data[day], function(d) { return parseInt(d.Points) }));
+    .domain(d3.extent(articles, function(d) { return parseInt(d.Points) }));
 
   var color = d3.scale.category10();
 
@@ -74,7 +77,7 @@ var draw_scatter = function(day){
     .call(yAxis)
   .append("text")
     .attr("class","label")
-    // .attr("transform","rotate(-90)")
+   // .attr("transform","rotate(-90)")
     .attr("y", height/2)
     .attr("x", 60)
     .attr("dy", '.72em')
@@ -83,7 +86,7 @@ var draw_scatter = function(day){
     .style("font-size",15)
 
   svg.selectAll("circle")
-    .data(data[day])
+    .data(articles)
     .enter()
     .append("svg:a")
       .attr('xlink:href',function(d){return d.Url})
@@ -106,7 +109,7 @@ var draw_scatter = function(day){
 
     $('.scatter_plot .tick')[0].remove()
 
-    calculate_keywords(day);
+    //calculate_keywords(day);
 
     $('.scatter_plot a').mouseover(function(e){
       var mouse_top = e.clientY;
@@ -114,7 +117,3 @@ var draw_scatter = function(day){
       $('#scatter_tt').offset({top: mouse_top-50, left: mouse_left})
     });
 };
-<<<<<<< HEAD
-=======
-
->>>>>>> 34e01b0cade8a9dc6d3ef025e40ea3fd703f4e36

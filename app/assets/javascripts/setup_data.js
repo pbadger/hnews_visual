@@ -3,7 +3,7 @@ days = ['monday1','tuesday1','wednesday','thursday','friday','saturday','sunday'
 function get_total_keyword_frequency(keywords){
   _.each(days, function(day){
     var points = get_theme_points(day,keywords);
-    console.log(points);
+    return console.log(points);
   });
 }
 

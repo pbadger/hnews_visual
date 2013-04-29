@@ -15,7 +15,18 @@ function filter_articles(data,keywords,min_overlap){
   return filtered;
 }
 
-var evens = _.filter([1, 2, 3, 4, 5, 6], function(num){ return num % 2 == 0; });
+function get_theme(name){
+	if(name == "bmbombs"){ return themes.bmbombs; }
+	else if(name == "cispa"){ return themes.cispa;}
+	else if(name == "google_glass"){ return themes.google_glass;}
+	else if(name == "startups"){ return themes.startups;}
+}
+
+function draw_theme(name){
+	draw_bar(name);
+	draw_scatter(name);
+	//draw_stream(name);
+}
 
 function setup_themes(){
 
