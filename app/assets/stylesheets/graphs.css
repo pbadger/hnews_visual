@@ -32,12 +32,6 @@ body {
 .chart rect:hover {
   stroke: black;
 }
-.container {
-  padding: 5px;
-  float: left;
-  border: 1px;
-  border-color: #736F6E;
-}
 #side,.back_but{
   padding: 5px;
   float: right;
@@ -54,41 +48,36 @@ body {
   margin-right: auto;
 }
 #bar{
-  background-color: #eeeeee;
-  border-radius: 5px;
   border: 2px solid;
   height: 275px;
   width: 500px;
   margin: 5px;
   margin-bottom: 10px;
-  padding: 5px;
   float: left;
 }
 
 #scatter{
-  background-color: #eeeeee;
-  border-radius: 5px;
   border: 2px solid;
   height: 275px;
   width: 700px;
   margin: 5px;
   margin-bottom: 10px;
-  padding: 5px;
   float: left;
 }
 
 #stream{
-  background-color: #eeeeee;
-  border-radius: 5px;
   clear: both;
   display: block;
   border: 2px solid;
   width: 1225px;
   height: 275px;
   margin: 5px;
+}
+.container{
+  background-color: #eeeeee;
+  border-radius: 5px;
   padding: 5px;
 }
-
 .modal{
   display:none;
 }

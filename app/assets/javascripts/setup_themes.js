@@ -15,12 +15,12 @@ function filter_articles(data,keywords,min_overlap){
   return filtered;
 }
 
-function get_theme(name){
-	if(name == "bmbombs"){ return themes.bmbombs; }
-	else if(name == "cispa"){ return themes.cispa;}
-	else if(name == "google_glass"){ return themes.google_glass;}
-	else if(name == "startups"){ return themes.startups;}
-}
+// function get_theme(name){
+// 	if(name == "bmbombs"){ return themes.bmbombs; }
+// 	else if(name == "cispa"){ return themes.cispa;}
+// 	else if(name == "google_glass"){ return themes.google_glass;}
+// 	else if(name == "startups"){ return themes.startups;}
+// }
 
 function draw_theme(name){
 	draw_bar(name);

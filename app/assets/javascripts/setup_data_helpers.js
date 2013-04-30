@@ -40,7 +40,6 @@ function has_intersect(a, b, min_intersections)
   return false;
 }
 
-
 function get_keywords(post){
     var words=[];
     for(word_num=0;word_num<10;word_num++)
@@ -51,4 +50,13 @@ function get_keywords(post){
       catch(e){}
     }
     return words;
+}
+
+var parseDate = d3.time.format("%m-%d-%H-%M").parse
+function clean_date(date_time2){
+  var month = date_time2.split(" ")[1];
+  var day = date_time2.split(" ")[0];
+  var hour = date_time2.split(" ")[2].split(":")[0];
+  var minute = date_time2.split(" ")[3];
+  return month + "-" + day + "-" + hour +"-"+ minute;
 }

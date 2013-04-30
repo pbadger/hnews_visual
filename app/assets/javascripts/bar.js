@@ -68,8 +68,8 @@ function calculate_points(keyword, articles){
 }
 
 function draw_bar(theme){
-  var articles = get_theme(theme).articles;
-  var keywords = get_theme(theme).keywords;
+  var articles = themes[theme].articles;
+  var keywords = themes[theme].keywords;
   var data = [];
   keywords.forEach(function(dat,i) {
     d = {};

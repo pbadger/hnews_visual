@@ -1,13 +1,15 @@
 var words=[]; 
-
 var scatter = {};
 scatter.fill_show_tooltip = function(d){
+  window.clearTimeout(window.timeoutHandle);
   $('#scatter_tt').show();
   $('#scatter_tt .tt_title').text(d.Title);
   $('#scatter_tt .tt_points').text('Points: '+d.Points);
 }
 scatter.hide_tooltip = function(){
-  $('#scatter_tt').hide();
+  window.timeoutHandle = window.setTimeout(function() {
+    $(".tooltip").fadeOut();
+  }, 100)
 }
 scatter.tuesday;
 scatter.wednesday;
@@ -17,17 +19,8 @@ scatter.sunday;
 
 
 function draw_scatter(theme){
-  var articles = get_theme(theme).articles;
-  console.log(articles);
-  
-  var parseDate = d3.time.format("%m-%d-%H-%M").parse
-  var clean_date = function(date_time2){
-    var month = date_time2.split(" ")[1];
-    var day = date_time2.split(" ")[0];
-    var hour = date_time2.split(" ")[2].split(":")[0];
-    var minute = date_time2.split(" ")[3];
-    return month + "-" + day + "-" + hour +"-"+ minute;
-  }
+  // console.log(articles);
+  var articles = themes[theme].articles
 
   var margin = {top: 20, right: 20, bottom: 60, left: 40},
     width = 700 - margin.left - margin.right,
@@ -114,6 +107,6 @@ function draw_scatter(theme){
     $('.scatter_plot a').mouseover(function(e){
       var mouse_top = e.clientY;
       var mouse_left = e.clientX;
-      $('#scatter_tt').offset({top: mouse_top-50, left: mouse_left})
+      $('#scatter_tt').offset({top: mouse_top-50, left: mouse_left+5})
     });
 };

@@ -4,11 +4,11 @@ import mechanize
 import csv
 import string
 
-in_file_name = 'hn_sat_sun_29_1159pm.csv'
+in_file_name = 'fri_to_mon_copy.csv'
 in_file = open(in_file_name,'r')
 in_file.readline()
 
-output = open("sat_sun_28_final.csv", "w")
+output = open("mon_15_fri_19_final.csv", "w")
 writer = csv.writer(output,lineterminator='\n')
 writer.writerow(["Title", "Points", "Url", "Time_Posted", "Keywords"])
 
@@ -93,16 +93,16 @@ for line in in_file:
       day = split_time[0] + 'y'
       post_number = int(split_time[1])
       if day == 'monday':
-        date = '22 04 '
+        date = '15 04 '
         time_posted = get_time(post_number,monday_num+1)
       elif day == 'tuesday':
-        date = '23 04 '
+        date = '16 04 '
         time_posted = get_time(post_number,tuesday_num+1)
       elif day == 'wednesday':
-        date = '24 04 '
+        date = '17 04 '
         time_posted = get_time(post_number,wednesday_num+1)
       elif day == 'thursday':
-        date = '25 04 '
+        date = '18 04 '
         time_posted = get_time(post_number,thursday_num+1)
       elif day == 'saturday':
         date = '27 04 '
