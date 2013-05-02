@@ -1,9 +1,8 @@
 HnVisual::Application.routes.draw do
   get "graphs/scatter"
   get "graphs/index"
+  get "graphs/video"
   # resources :graphs
-
-
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
