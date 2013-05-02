@@ -3,6 +3,12 @@ themes.bmbombs = {};
 themes.cispa = {};
 themes.google_glass = {};
 themes.startups = {};
+themes.mobile = {};
+themes.twitter = {};
+themes.bitcoin = {};
+themes.servers = {};
+
+theme_names = ['bmbombs','google_glass','cispa','startups','mobile','twitter','bitcoin','servers'];
 
 function filter(article,keywords,min_overlap){
   return has_intersect(keywords,get_keywords(article),min_overlap);
@@ -29,14 +35,13 @@ function draw_theme(name){
 }
 
 function setup_themes(){
-
   themes.bmbombs.keywords = ['boston','bombing','bomb','bombs','marathon','dead',
   'terrorism','tsarnaev','reddit','police','mit','threat'];
 
   themes.bmbombs.articles = filter_articles(total_data,themes.bmbombs.keywords,2);
 
 
-  themes.cispa.keywords = ['cispa','privacy','congress','bill','security'];
+  themes.cispa.keywords = ['cispa','privacy','congress','bill','security','veto','white','freedom','lawmakers','cybersecurity','government'];
 
   themes.cispa.articles = filter_articles(total_data,themes.cispa.keywords,2);
 
@@ -51,6 +56,18 @@ function setup_themes(){
 
   themes.startups.articles = filter_articles(total_data,themes.startups.keywords,2);
   console.log('done with setup!')
+
+  themes.mobile.keywords = ['mobile','android','iphone','ipad','microsoft','apple','smartphone','galaxy','ios']
+  themes.mobile.articles = filter_articles(total_data,themes.mobile.keywords,2);
+
+  themes.twitter.keywords = ['twitter']
+  themes.twitter.articles = filter_articles(total_data,themes.twitter.keywords,1);
+
+  themes.bitcoin.keywords = ['bitcoin','bitcoins','hacker','currency','coin','mining','encryption','mtgox','coinbase']
+  themes.bitcoin.articles = filter_articles(total_data,themes.bitcoin.keywords,1);
+
+  themes.servers.keywords = ['server','rails','heroku','hosting','host']
+  themes.servers.articles = filter_articles(total_data,themes.servers.keywords,1);
 }
 
 

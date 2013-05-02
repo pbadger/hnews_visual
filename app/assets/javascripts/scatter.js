@@ -97,8 +97,6 @@ function draw_scatter(theme){
     })
     .on("mouseover", function(d,i){ d3.select(d3.event.target).attr('r',6.5);scatter.fill_show_tooltip(d)})
     .on("mouseout", function(){d3.select(this).attr('r',3.5);scatter.hide_tooltip()})
-    // .append("svg:title")
-    //   .text(function(d, i) { return d.Title; })
 
     $('.scatter_plot .tick')[0].remove()
 

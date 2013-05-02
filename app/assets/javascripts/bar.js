@@ -38,27 +38,6 @@ stop_words = _.filter(stop_words, function(word){
   return word.length > 2;  
 });
 
-// var keywords = [];
-//   _.each(data, function(d){
-//     keywords = keywords.concat(get_keywords(d),d.Title.match(/(\w+)/g),d.Title.match(/(\w+)/g))
-//   });
-  
-//   keywords = _.filter(keywords, function(word){
-//     if(word)
-//       {return (word.length >= 3 && stop_words.indexOf(word.toLowerCase()) == -1)}
-//     else
-//       {return 0;}});
-
-//   keywords = _.countBy(keywords, function(word) {
-//     return word.toLowerCase();
-//   });
-
-//   keywords = $.map(keywords, function (value, key){
-//     return key+"_"+value})
-
-//   keywords = _.sortBy(keywords, function(string){ return -string.split("_")[1]});
-
-
 function calculate_points(keyword, articles){
   var counter = 0;
   articles.forEach(function(d){
@@ -142,6 +121,8 @@ function draw_bar(theme){
     .style("text-anchor","end")
     .text("Popular Keywords by Frequency*")
     .style("font-size",20);
+
+  draw_stream();
 }
 
 

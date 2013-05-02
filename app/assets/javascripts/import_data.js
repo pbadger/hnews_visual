@@ -41,7 +41,7 @@ d3.csv('/assets/mon_15_to_fri_19.csv',function(d){total_data = total_data.concat
             total_data.sunday2 = grouped_data['28'];
 
             setup_themes();
-            draw_theme("google_glass");
+            draw_theme("bmbombs");
           })
         })
       })

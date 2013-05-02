@@ -1,11 +1,13 @@
 days = ['monday1','tuesday1','wednesday','thursday','friday','saturday','sunday','monday2','tuesday2',
 'wednesday2','thursday2','friday2','saturday2','sunday2']
 
-function get_total_keyword_frequency(keywords){
+function get_total_keyword_points(keywords){
+  var total_points = []
   _.each(days, function(day){
     var points = get_theme_points(day,keywords);
-    return console.log(points);
+    total_points.push(points);
   });
+  return total_points;
 }
 
 function get_theme_points(day,keywords)
@@ -14,13 +16,13 @@ function get_theme_points(day,keywords)
   occurrences = 0;
   _.each(total_data[day], function(post){
     var post_words = get_keywords(post);
-    if(has_intersect(post_words, keywords)) 
+    if(has_intersect(post_words, keywords,2)) 
     {
       points += parseInt(post.Points);
       occurrences += 1;
     }
   });
-  theme_points = occurrences * 1 + points * 0;
+  theme_points = occurrences * 7 + points * 1;
   return theme_points;
 }
 

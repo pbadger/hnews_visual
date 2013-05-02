@@ -70,11 +70,12 @@ body {
   display: block;
   border: 2px solid;
   width: 1225px;
-  height: 275px;
+  height: 475px;
   margin: 5px;
 }
 .container{
   background-color: #eeeeee;
+  border-color: #ccc;
   border-radius: 5px;
   padding: 5px;
 }
