@@ -79,9 +79,10 @@ body {
   border-radius: 5px;
   padding: 5px;
 }
-.modal{
-  display:none;
-}
 .modal-header,.modal-footer{
   text-align: center;
+}
+.video-link{
+  margin-right: 80px;
+  float: right;
 }

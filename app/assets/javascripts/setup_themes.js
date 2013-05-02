@@ -7,6 +7,7 @@ themes.mobile = {};
 themes.twitter = {};
 themes.bitcoin = {};
 themes.servers = {};
+themes.custom = {};
 
 theme_names = ['bmbombs','google_glass','cispa','startups','mobile','twitter','bitcoin','servers'];
 
@@ -31,7 +32,7 @@ function filter_articles(data,keywords,min_overlap){
 function draw_theme(name){
 	draw_bar(name);
 	draw_scatter(name);
-	// draw_stream(name);
+	draw_stream(name);
 }
 
 function setup_themes(){

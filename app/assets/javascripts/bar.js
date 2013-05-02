@@ -53,27 +53,24 @@ function draw_bar(theme,articles_arg){
   if(typeof articles_arg !== "undefined") {
     articles = articles_arg; 
     keywords = get_pop_keywords_from_articles(articles)
-    console.log(keywords,'UNDEFINED');
     keywords.length = 12
-    _.each(keywords,function(word,i){
+    _.each(keywords,function(word,iter){
       d = {};
       d.word = word.split('_')[0];
-      d.fre = word.split('_')[1];
-      data[i] = d;
+      d.fre = parseInt(word.split('_')[1]);
+      data[iter] = d;
     })
-    $('svg.chart').remove()
   }
   else{
     articles = themes[theme].articles;
     keywords = themes[theme].keywords;
-    keywords.forEach(function(word,i) {
+    keywords.forEach(function(word,iter) {
       d = {};
       d.word = word;
       d.fre = calculate_points(word, articles);
-      data[i] = d;
+      data[iter] = d;
     });
   }
-
 
   var width = 500;
   var height = 275;
@@ -85,7 +82,7 @@ function draw_bar(theme,articles_arg){
 
   var y = d3.scale.linear()
     .domain([0,d3.max(data, function(d){return d.fre;})])
-    .range([height-40, 0]);
+    .range([height-40, 20]);
 
   var xAxis = d3.svg.axis()
     .orient("bottom");
@@ -111,9 +108,9 @@ function draw_bar(theme,articles_arg){
     .attr("height", function(d){return 235 - y(d.fre)})
     .style("fill",'#ff6600')
     .on("mouseover", function(d,i){
-      d3.select(d3.event.target).style("fill", "black");//highlight(d.word,day);
+      d3.select(d3.event.target).style("fill", "black");highlight_scatter(d.word);
     })
-    .on("mouseout", function(){d3.select(this).style("fill", "#ff6600");})
+    .on("mouseout", function(){d3.select(this).style("fill", "#ff6600")});//clear_scatter_highlight()})
 
   chart.append("g")
     .attr("class","y axis")

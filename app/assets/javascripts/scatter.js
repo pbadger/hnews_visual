@@ -85,7 +85,13 @@ function draw_scatter(theme){
       }
       else{return false}
     });
-    draw_bar('none',selected_articles);
+    $('svg.chart').hide()
+    if(selected_articles.length === 0){
+      draw_bar(theme);
+    }
+    else{
+      draw_bar('none',selected_articles);
+    }
     // if (brush.empty()) svg.selectAll(".hidden").classed("hidden", false);
   }
 
@@ -124,6 +130,12 @@ function draw_scatter(theme){
     .style("font-size",15);
 
   svg.call(brush);
+
+  svg.append("text")
+    .attr("y", 10)
+    .attr("x", width/2 - 100)
+    .text("Articles by Theme")
+    .style("font-size",15);
 
   svg.selectAll("circle")
     .data(articles)
