@@ -95,9 +95,9 @@ function draw_stream(theme){
   });
 
   svg.append("text")
-    .attr("transform","translate( "+(width / 2 - 200)+" 20)")
+    .attr("transform","translate( "+(width / 2 - 220)+" 20)")
     .style("font-size",20)
-    .text("Themes over the Course of a Week")
+    .text("HN Themes From April 15th to April 28th")
 
   var y_axis = svg.append("g")
     .attr("class","y axis")
