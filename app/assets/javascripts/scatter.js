@@ -161,10 +161,9 @@ function draw_scatter(theme){
     $('.scatter_plot .tick')[0].remove()
 
     $('.scatter_plot a').mouseover(function(e){
-      var mouse_top = e.clientY;
-      var mouse_left = e.clientX;
+      var mouse_top = e.pageY;
+      var mouse_left = e.pageX;
       $('#scatter_tt').offset({top: mouse_top-50, left: mouse_left+5})
     });
-
 
 };
