@@ -10,10 +10,22 @@ function get_total_keyword_points(keywords){
   return total_points;
 }
 
-function get_theme_points(day,keywords)
+// TRYING TO WRITE A FUNCTTION TO SPEED UP THE STREAM GRAPH
+// function get_themed_keyword_points(theme_name,articles){
+  
+//   var total_points = []
+//   _.each(days, function(day){
+//     var points = get_theme_points(day,keywords);
+//     total_points.push(points);
+//   });
+//   return total_points;
+// } 
+
+function get_theme_points(day,keywords,articles)
 { 
   points = 0;
   occurrences = 0;
+  
   _.each(total_data[day], function(post){
     var post_words = get_keywords(post);
     if(has_intersect(post_words, keywords,2)) 
@@ -22,7 +34,7 @@ function get_theme_points(day,keywords)
       occurrences += 1;
     }
   });
-  theme_points = occurrences * 7 + points * 1;
+  theme_points = occurrences * 10 + points * 1;
   return theme_points;
 }
 

@@ -10,32 +10,11 @@ function draw_stream(theme){
       stack = d3.layout.stack().offset("wiggle"),
       layers0 = stack(d3.range(n).map(function(i){ return get_layer(i)}));
 
-
   var margin = {top: 5, right: 5, bottom: 5, left: 5},
       width = $('#stream').width() - margin.left - margin.right,
       height = $('#stream').height() - margin.top - margin.bottom;
 
-  
-  // initialize the axes components
-  // var x = d3.scale.ordinal(),
-    // y = d3.scale.linear(),
-    xAxis = d3.svg.axis().scale(x); // NOTE ';'
-    // yAxis = d3.svg.axis().scale(y).tickSize(-pw, 3, 1).orient("left");
-
-  // initialize the domains of x and y
-  // the domain of x will be the same throughout : [0, 1], but y's will change
-
-  // y.domain([0, 1]).range([ph2,0]);
-
-
-  // var x = d3.time.scale()
-  //   .range([0, width])
-  //   .domain(d3.extent(articles, function(d) { return parseDate(clean_date(d.date_time)) }));
-
-
-  // var x = d3.scale.linear()
-  //  .domain(['mon tues wed','thurs','fri','sat','sun','mon','tues','wed','thurs','fri','sat','sun'])
-  //  .range([0,width])
+  var xAxis = d3.svg.axis().scale(x);
 
   // var findmax = function(){
   //   biggest_sum = 0;
@@ -81,7 +60,18 @@ function draw_stream(theme){
     .enter().append("path")
       .attr("d", area)
       .style("fill", function() { return color(Math.random()); })
-      .on("mouseover", function(d,i){console.log(d)}) 
+      .style("cursor",'pointer')
+      .on("mouseover", function(d,i){
+        console.log(d[0].name);
+        d3.select(this).style('stroke','black').style("stroke-width","3px"); 
+      }) 
+      .on("mouseout", function(){d3.select(this).style('stroke','none');})
+      .on("click",function(d,i){
+        var theme_name = d[0].name
+        remove_bar_and_scatter();
+        draw_bar(theme_name);
+        draw_scatter(theme_name);
+      })
 
   window.svg = svg;
   window.xAxis = xAxis;
@@ -125,7 +115,7 @@ function draw_stream(theme){
     name = theme_names[i];
     day_array = get_total_keyword_points(themes[name].keywords);
     for(var i=0; i<14; i++){
-      point = {x:i,y:day_array[i]};
+      point = {x:i,y:day_array[i],name:name};
       layer.push(point);
     }
     console.log(layer,"layer")
@@ -157,6 +147,27 @@ function get_keywords_for_days(){
   console.log(keywords)
 }
 
+function get_pop_keywords_from_articles(articles){
+  var keywords = [];
+  _.each(articles, function(d){
+    keywords = keywords.concat(get_keywords(d),d.Title.match(/(\w+)/g),d.Title.match(/(\w+)/g))
+  });
 
+  keywords = _.filter(keywords, function(word){
+    if(word)
+      {return (word.length >= 3 && stop_words.indexOf(word.toLowerCase()) == -1)}
+    else
+      {return 0;}});
+
+  keywords = _.countBy(keywords, function(word) {
+    return word.toLowerCase();
+  });
+
+  keywords = $.map(keywords, function (value, key){
+    return key+"_"+value})
+
+  keywords = _.sortBy(keywords, function(string){ return -string.split("_")[1]});
+  return keywords
+}
 
 

@@ -8,8 +8,8 @@ scatter.fill_show_tooltip = function(d){
 }
 scatter.hide_tooltip = function(){
   window.timeoutHandle = window.setTimeout(function() {
-    $(".tooltip").fadeOut();
-  }, 100)
+    $(".tooltip").hide();
+  }, 80)
 }
 scatter.tuesday;
 scatter.wednesday;
@@ -19,6 +19,7 @@ scatter.sunday;
 
 
 function draw_scatter(theme){
+
   // console.log(articles);
   var articles = themes[theme].articles
 
@@ -43,6 +44,50 @@ function draw_scatter(theme){
   var yAxis = d3.svg.axis()
       .scale(y)
       .orient("left");
+
+  var brush = d3.svg.brush()
+      .x(x)
+      .y(y)
+      .on("brushstart", brushstart)
+      .on("brush", brushmove)
+      .on("brushend", brushend);
+
+  var brush_coords = [ [0,0],[0,0] ];
+
+  function brushstart(p) {
+    brush.clear()
+    brush_coords = [ [0,0],[0,0] ];
+    console.log(p,'brushstart')
+    // if (brushCell !== p) {
+    //   cell.call(brush.clear());
+    //   x.domain(domainByTrait[p.x]);
+    //   y.domain(domainByTrait[p.y]);
+    //   brushCell = p;
+    // }
+  }
+
+  function brushmove(p) {
+    var e = brush.extent();
+    console.log(e,'brushmove')
+    brush_coords = e
+    // bottom left to top right
+    // brush_coords = [ [date_1,point_1],[date_2,points_2] ] 
+  }
+
+  function brushend(p) {
+    console.log(brush_coords,'0,0')
+    var selected_articles = _.filter(themes[theme].articles,function(article){
+      if((brush_coords[0][0] < parseDate(clean_date(article.date_time))) &&
+        (brush_coords[1][0] > parseDate(clean_date(article.date_time))) &&
+        (brush_coords[0][1] < article.Points) &&
+        (article.Points < brush_coords[1][1])){
+        return true
+      }
+      else{return false}
+    });
+    draw_bar('none',selected_articles);
+    // if (brush.empty()) svg.selectAll(".hidden").classed("hidden", false);
+  }
 
   var svg = d3.select("#scatter").append("svg")
     .attr("class", "scatter_plot")
@@ -76,7 +121,9 @@ function draw_scatter(theme){
     .attr("dy", '.72em')
     .style("text-anchor","end")
     .text("Points")
-    .style("font-size",15)
+    .style("font-size",15);
+
+  svg.call(brush);
 
   svg.selectAll("circle")
     .data(articles)
@@ -92,19 +139,20 @@ function draw_scatter(theme){
       return y(parseInt(d.Points));
     })
     .attr("r",3.5)
-    .attr('opacity', function(d){
-      return Math.log(d.Points)/8 + 0.13;
-    })
+    // .attr('opacity', function(d){
+    //   return Math.log(d.Points)/8 + 0.13;
+    // })
     .on("mouseover", function(d,i){ d3.select(d3.event.target).attr('r',6.5);scatter.fill_show_tooltip(d)})
     .on("mouseout", function(){d3.select(this).attr('r',3.5);scatter.hide_tooltip()})
+    .on("mousedown", function(d){window.open(d.Url,'_blank',false)})
 
     $('.scatter_plot .tick')[0].remove()
-
-    //calculate_keywords(day);
 
     $('.scatter_plot a').mouseover(function(e){
       var mouse_top = e.clientY;
       var mouse_left = e.clientX;
       $('#scatter_tt').offset({top: mouse_top-50, left: mouse_left+5})
     });
+
+
 };

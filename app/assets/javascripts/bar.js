@@ -46,18 +46,34 @@ function calculate_points(keyword, articles){
   return counter;
 }
 
-function draw_bar(theme){
-  var articles = themes[theme].articles;
-  var keywords = themes[theme].keywords;
-  var data = [];
-  keywords.forEach(function(dat,i) {
-    d = {};
-    d.word = dat;
-    d.fre = calculate_points(dat, articles);
-    data[i] = d;
-  });
+function draw_bar(theme,articles_arg){
+  var articles=[];
+  var keywords=[];
+  var data=[];
+  if(typeof articles_arg !== "undefined") {
+    articles = articles_arg; 
+    keywords = get_pop_keywords_from_articles(articles)
+    console.log(keywords,'UNDEFINED');
+    keywords.length = 12
+    _.each(keywords,function(word,i){
+      d = {};
+      d.word = word.split('_')[0];
+      d.fre = word.split('_')[1];
+      data[i] = d;
+    })
+    $('svg.chart').remove()
+  }
+  else{
+    articles = themes[theme].articles;
+    keywords = themes[theme].keywords;
+    keywords.forEach(function(word,i) {
+      d = {};
+      d.word = word;
+      d.fre = calculate_points(word, articles);
+      data[i] = d;
+    });
+  }
 
-  console.log(data);
 
   var width = 500;
   var height = 275;
@@ -121,8 +137,6 @@ function draw_bar(theme){
     .style("text-anchor","end")
     .text("Popular Keywords by Frequency*")
     .style("font-size",20);
-
-  draw_stream();
 }
 
 

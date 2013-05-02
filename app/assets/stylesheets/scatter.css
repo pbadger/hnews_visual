@@ -28,3 +28,5 @@ circle:hover{
   display: block;
   display:none;
 }
+
+.scatter_plot .extent{opacity: .3}
