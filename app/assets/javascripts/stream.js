@@ -37,7 +37,7 @@ function draw_stream(theme){
   var y = d3.scale.linear()
     .domain([0, d3.max(layers0, function(layer) {
       return d3.max(layer, function(d) { return d.y0 + d.y; }); })])
-    .range([0+height*.1,height*.90]);
+    .range([0+height*.0,height*.9]);
 
   var yAxis = d3.svg.axis().scale(y);
 

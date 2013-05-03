@@ -1,6 +1,8 @@
 .tooltip{
   display: none;
   position: absolute;
+  top: 400px;
+  left: 600px;
   border-radius: 10px;
   border: 1px solid #ccc;
   background-color: white;
