@@ -89,7 +89,7 @@ body {
 }
 .middle-area{
   width: 1225px;
-  height: 40px;
+  height: 35px;
 }
 .middle-area button{
   font-family: Verdana;
@@ -135,8 +135,6 @@ body {
   opacity: 1;
 }
 .middle-area button{
-  border: 4px;
-  border-style: none;
   opacity: .5
 }
 .middle-area button:hover{
