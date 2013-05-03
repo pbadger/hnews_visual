@@ -53,7 +53,7 @@ body {
   height: 275px;
   width: 500px;
   margin: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 2px;
   float: left;
 }
 
@@ -62,7 +62,7 @@ body {
   height: 275px;
   width: 700px;
   margin: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 2px;
   float: left;
 }
 
@@ -160,4 +160,21 @@ body {
   margin-top: 30px;
   text-align: center;
   opacity: .7;
+}
+.reset.bar{
+  float: left;
+  margin-left: 200px;
+  margin-right: 200px;
+}
+.reset.scatter{
+  float: right;
+  margin-left: 220px;
+  margin-right: 340px;
+}
+.reset button{
+  font-size: 1.3em;
+  margin: 2px;
+}
+.reset-buttons{
+  width:100%;
 }

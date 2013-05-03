@@ -18,7 +18,7 @@ $(document).ready(function(){
       remove_bar_and_scatter();
       draw_bar('custom');
       draw_scatter('custom'); 
-      $("#custom_theme_modal").modal("hide");
+      $("#custom_theme_modal").modal("show");
     };
   });
 

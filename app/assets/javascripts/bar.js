@@ -110,7 +110,8 @@ function draw_bar(theme,articles_arg){
     .on("mouseover", function(d,i){
       d3.select(d3.event.target).style("fill", "black");highlight_scatter(d.word);
     })
-    .on("mouseout", function(){d3.select(this).style("fill", "#ff6600")});//clear_scatter_highlight()})
+    .on("mouseout", function(){d3.select(this).style("fill", "#ff6600")})//clear_scatter_highlight()})
+    .on("mousedown",function(d,i){console.log(d.word);$('svg.scatter_plot').remove();draw_scatter(theme,d.word)});
 
   chart.append("g")
     .attr("class","y axis")
@@ -134,6 +135,11 @@ function draw_bar(theme,articles_arg){
     .style("text-anchor","end")
     .text("Popular Keywords by Frequency*")
     .style("font-size",20);
+
+  $('.reset.scatter').click(function(){
+    $('svg.scatter_plot').remove()
+    draw_scatter(theme);
+  });
 }
 
 

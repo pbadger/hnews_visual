@@ -18,10 +18,15 @@ scatter.friday;
 scatter.sunday;
 
 
-function draw_scatter(theme){
-
-  // console.log(articles);
-  var articles = themes[theme].articles
+function draw_scatter(theme,keyword_arg){
+  var articles;
+  if(typeof keyword_arg !== 'undefined')
+  {
+    articles = filter_articles(themes[theme].articles,[keyword_arg],1);
+  }  
+  else{
+    articles = themes[theme].articles
+  }
 
   var margin = {top: 20, right: 20, bottom: 60, left: 40},
     width = 700 - margin.left - margin.right,
@@ -82,8 +87,8 @@ function draw_scatter(theme){
       draw_bar(theme);
     }
     else{
-      draw_bar('none',selected_articles);
-    }
+      draw_bar(theme,selected_articles);
+    } 
     // if (brush.empty()) svg.selectAll(".hidden").classed("hidden", false);
   }
 
@@ -98,7 +103,8 @@ function draw_scatter(theme){
 
   svg.append("g")
     .attr("class","x axis")
-    .attr("transform","translate(0," + height + ")")
+    .style('font-size','.7em')
+    .attr("transform","translate(-15," + height + ")")
     .call(xAxis)
   .append("text")
     .attr("class","label")
@@ -152,12 +158,15 @@ function draw_scatter(theme){
     .on("mouseout", function(){d3.select(this).attr('r',3.5);scatter.hide_tooltip()})
     .on("mousedown", function(d){window.open(d.Url,'_blank',false)})
 
-    $('.scatter_plot .tick')[0].remove();
-
     $('.scatter_plot a').mouseover(function(e){
       var mouse_top = e.pageY;
       var mouse_left = e.pageX;
       $('#scatter_tt').offset({top: mouse_top-50, left: mouse_left+5})
     });
+
+  $('.reset.bar').click(function(){
+    $('svg.chart').remove()
+    draw_bar(theme);
+  });
 
 };

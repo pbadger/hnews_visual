@@ -112,7 +112,12 @@ function draw_stream(){
   //$('#stream').children().attr('data-intro', 'test');
   //$('#stream').children().attr('data-step', '4');  
   //$('#bmbombs').attr('stroke', 'black');
-  introJs().start();
+  
+  if (document.cookie != 'seen_page')
+  {
+    introJs().start();
+    document.cookie = 'seen_page';
+  }
   //introJs().onexit(reset_highlight());
 
   function reset_highlight(){

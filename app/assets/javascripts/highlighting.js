@@ -7,6 +7,10 @@ function highlight_scatter(word){
         if(get_keywords(d).indexOf(word)!= -1){return 1}
         else{return 0.4}
       })
+      .style('fill',function(d){
+        if(get_keywords(d).indexOf(word)!= -1){return 'green'}
+        else{return 'black'}
+      })
 }
 
 
