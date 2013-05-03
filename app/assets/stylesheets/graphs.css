@@ -83,6 +83,10 @@ body {
 .modal-header,.modal-footer{
   text-align: center;
 }
+#proj-description{
+  margin-left: 80px;
+  float:left;
+}
 .video-link{
   margin-right: 80px;
   float: right;
