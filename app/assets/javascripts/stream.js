@@ -130,7 +130,7 @@ function draw_stream(){
 
   
   $('.loading').hide();
-  $('.loading').html('<button class="btn premade color8" onclick="exit_modal()">Continue');
+  $('.loading').html('<button class="btn premade color8">Continue');
   $('.loading button').click(function() {
     $('#video_modal').modal('hide');
     introJs().start();
