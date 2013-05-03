@@ -5,18 +5,26 @@
   </head>
 
   <body>
-		<h1><center>A Snapshot of Hacker News</center></h1>
 	  <div id="main">	
 	  	<div id="stream" class="container">
 	  	</div>
+      <div class="middle-area">
+        <h4 class='themes_heading'></h4>
+        <button class="btn color1 selected premade" data-topic='0'>Boston Bombings
+        <button class="btn color2 premade" data-topic='1'>Google Glass
+        <button class="btn color3 premade" data-topic='2'>Cispa
+        <button class="btn color4 premade" data-topic='3'>Startups
+        <button class="btn color5 premade" data-topic='4'>Mobile
+        <button class="btn color6 premade" data-topic='5'>Bitcoin
+        <button class="btn color7 premade" data-topic='6'>Back-End Development
+        <button class="btn primary custom">Custom
+      </div>
 	  	<div id="bar" class="container">
 	  	</div>
 	  	<div id="scatter" class="container">
 	  	</div>
 	  </div> 
-  	<div class="keyword_explanation">
-  		This bar graph shows the frequency of the most common keywords across articles. These are simply the most common words, aggregated from all articles, with common <a href="http://en.wikipedia.org/wiki/Stop_word">'stop words'</a> filtered out.
-  	</div>   
+  	 
   	<div class='video-link'><h4>Check out the video <a href="video.html">here</a></h4></div>
 	
 
@@ -30,6 +38,25 @@
       </div>
     </div>  
 
+    <div class="modal fade" id='custom_theme_modal' style='display:none'>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h2>Make Your Own Theme!</h2>
+      </div>
+      <div class="modal-body">
+        Click this shit
+      
+        <div class="custom_theme">
+          <h3>Make Your Own Theme:</h3>
+          <input class="custom_keyword" placeholder="Your keyword">
+          <button class="submit_cus_key">Add</button>
+          <div class="chosen_keywords">
+          </div>
+          <button class="draw_cus_theme">Implement Theme</button>
+        </div>
+      </div>
+    </div>  
+
     <div class="tooltip" id="scatter_tt">
       <div class="tt_title">
       </div>
@@ -37,14 +64,7 @@
       </div>
     </div>
 
-    <div class="custom_theme">
-      <h3>Make Your Own Theme:</h3>
-      <input class="custom_keyword" placeholder="Your keyword">
-      <button class="submit_cus_key">Add</button>
-      <div class="chosen_keywords">
-      </div>
-      <button class="draw_cus_theme">Implement Theme</button>
-    </div>
+
 
 
 

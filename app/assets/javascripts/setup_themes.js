@@ -11,7 +11,7 @@ themes.custom = {};
 themes.custom.keywords = [];
 themes.custom.articles = [];
 
-theme_names = ['bmbombs','google_glass','cispa','startups','mobile','twitter','bitcoin','servers'];
+theme_names = ['bmbombs','google_glass','cispa','startups','mobile','bitcoin','servers'];
 
 function filter(article,keywords,min_overlap){
   return has_intersect(keywords,get_keywords(article),min_overlap);
@@ -34,7 +34,7 @@ function filter_articles(data,keywords,min_overlap){
 function draw_theme(name){
 	draw_bar(name);
 	draw_scatter(name);
-	// draw_stream(name);
+	draw_stream();
 }
 
 function setup_themes(){
@@ -53,9 +53,6 @@ function setup_themes(){
 
   themes.mobile.keywords = ['mobile','android','iphone','ipad','microsoft','apple','smartphone','galaxy','ios']
   themes.mobile.articles = filter_articles(total_data,themes.mobile.keywords,2);
-
-  themes.twitter.keywords = ['twitter']
-  themes.twitter.articles = filter_articles(total_data,themes.twitter.keywords,1);
 
   themes.bitcoin.keywords = ['bitcoin','bitcoins','hacker','currency','coin','mining','encryption','mtgox','coinbase']
   themes.bitcoin.articles = filter_articles(total_data,themes.bitcoin.keywords,1);

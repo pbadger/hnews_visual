@@ -18,7 +18,23 @@ $(document).ready(function(){
       remove_bar_and_scatter();
       draw_bar('custom');
       draw_scatter('custom'); 
+      $("#custom_theme_modal").modal("hide");
     };
   });
+
+  $('.middle-area button.premade').click(function(el){
+    remove_bar_and_scatter();
+    var theme = theme_names[$(this).data('topic')];
+    draw_bar(theme);
+    draw_scatter(theme);
+    $('.middle-area button').removeClass('selected')
+    $(this).addClass('selected');
+  });
+
+  $('.middle-area button.custom').click(function(){
+    $("#custom_theme_modal").modal("show");
+  })
+
+
 
 })
