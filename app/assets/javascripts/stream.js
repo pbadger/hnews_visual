@@ -122,11 +122,7 @@ function draw_stream(){
   $('.loading').html('<button class="btn premade color8">Continue');
   $('.loading button').click(function() {
     $('#video_modal').modal('hide');
-    if (document.cookie != 'seen_page')
-    {
-      introJs().start();
-      document.cookie = 'seen_page';
-    }
+    introJs().start();
   });
   $('.loading').show();
 
