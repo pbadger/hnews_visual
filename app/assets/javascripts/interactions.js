@@ -7,8 +7,8 @@ $(document).ready(function(){
   $('.submit_cus_key').click(function(){
     var input = $('.custom_keyword').val();
     if(input.length > 0){
-      themes.custom['keywords'].push(input) 
-      $('.chosen_keywords').append('<span>'+input+'</span>')
+      themes.custom['keywords'].push(input.toLowerCase()) 
+      $('.chosen_keywords').append('<div></p>'+input+'</div>')
       $('.custom_keyword').val('')
     }
   })
