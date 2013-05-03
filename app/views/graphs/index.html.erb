@@ -7,11 +7,12 @@
   <body>
 		<h1><center>A Snapshot of Hacker News</center></h1>
 	  <div id="main">	
-	  	<div id="stream" class="container">
+	  	<div id="stream" class="container" data-intro='Welcome to our Hacker News Visualization! We have broken up the news stories over the past two weeks into distinct themes that you can interact with. In this stream graph you can see the relative popularity of these themes over time. If you click on a specific theme in the graph, the other graphs will update to only display based off of the selected theme.' data-step='1'>
+	  		<div data-intro='Boston description' data-step='4'></div>
 	  	</div>
-	  	<div id="bar" class="container">
+	  	<div id="bar" class="container" data-intro='Here is a simple bar graph displaying the keywords in the selected theme in terms of how frequently the keyword appeared in articles. If you hover over a keyword, the scatterplot will update to highlight the articles that contain that keyword.' data-step='2'>
 	  	</div>
-	  	<div id="scatter" class="container">
+	  	<div id="scatter" class="container" data-intro='This scatter plot displays all of the articles that relate to the theme as they occur over time and in terms of their number of upvotes. You can select a range of articles with your mouse to update the bar graph so that it displays only those keywords in the selected articles.' data-step='3'>
 	  	</div>
 	  </div> 
   	<div class="keyword_explanation">
