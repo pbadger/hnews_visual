@@ -59,6 +59,7 @@ function draw_stream(){
       .data(layers0)
     .enter().append("path")
       .attr("d", area)
+      .attr("id", function(d){ return d[0].name; })
       .style("fill", function() { return color(Math.random()); })
       .style("cursor",'pointer')
       .on("mouseover", function(d,i){
@@ -107,6 +108,16 @@ function draw_stream(){
       .style("font-size",14)
       .text("Theme Points: 1 tick = 200 points")
 
+  $('#video_modal').modal('hide');
+  //$('#stream').children().attr('data-intro', 'test');
+  //$('#stream').children().attr('data-step', '4');  
+  //$('#bmbombs').attr('stroke', 'black');
+  introJs().start();
+  //introJs().onexit(reset_highlight());
+
+  function reset_highlight(){
+    $('#bmbombs').attr('stroke', 'none');
+  }
 
   function get_layer(i){
     layer = []
@@ -120,6 +131,8 @@ function draw_stream(){
     console.log(layer,"layer")
     return layer;
   }
+
+
 }
 
 function get_keywords_for_days(){
