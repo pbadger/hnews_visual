@@ -131,6 +131,10 @@ body {
   background-image: none; 
   background-color: #fdae6b;
 }
+.color8{
+  background-image: none;
+  background-color: #ff6600;
+}
 .middle-area button.selected{
   opacity: 1;
 }
