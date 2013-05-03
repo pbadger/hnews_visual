@@ -34,11 +34,11 @@ function draw_scatter(theme,keyword_arg){
 
   var x = d3.time.scale()
     .range([0, width])
-    .domain(d3.extent(articles, function(d) { return parseDate(clean_date(d.date_time)) }))
+    .domain(d3.extent(themes[theme].articles, function(d) { return parseDate(clean_date(d.date_time)) }))
 
   var y = d3.scale.linear()
     .range([height, 0])
-    .domain(d3.extent(articles, function(d) { return parseInt(d.Points) }));
+    .domain(d3.extent(themes[theme].articles, function(d) { return parseInt(d.Points) }));
 
   var color = d3.scale.category10();
 
