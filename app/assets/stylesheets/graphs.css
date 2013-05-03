@@ -97,7 +97,7 @@ body {
   padding-top: 3px;
   padding-bottom: 2px;
   font-size: 1.2em;
-  margin: 4px 6px 4px 23px;
+  margin: 4px 6px 4px 22px;
 }
 .themes_heading{
   float:left;
@@ -130,6 +130,10 @@ body {
 .color7{
   background-image: none; 
   background-color: #fdae6b;
+}
+.color8{
+  background-image: none;
+  background-color: #ff6600;
 }
 .middle-area button.selected{
   opacity: 1;

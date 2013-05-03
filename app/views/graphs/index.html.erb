@@ -10,13 +10,13 @@
 	  	</div>
       <div class="middle-area" data-intro='Welcome to our Hacker News Visualization! We have broken up the news stories over the past two weeks into distinct themes that you can interact with. You can select the different themes by selecting these buttons or by clicking on the stream graph above. In the stream graph you can see the relative popularity of these themes over time. If you click on a specific theme in the graph, the other graphs will update their displays based on the selected theme. You can also create a custom theme with personalized keywords by selecting the &quot;Custom&quot; button.' data-step='1'>
         <h4 class='themes_heading'></h4>
-        <button class="btn color1 selected premade" data-topic='0'>Boston Bombings
-        <button class="btn color2 premade" data-topic='1'>Google Glass
-        <button class="btn color3 premade" data-topic='2'>Cispa
-        <button class="btn color4 premade" data-topic='3'>Startups
-        <button class="btn color5 premade" data-topic='4'>Mobile
-        <button class="btn color6 premade" data-topic='5'>Bitcoin
-        <button class="btn color7 premade" data-topic='6'>Back-End Development
+        <button class="btn color1 selected premade bmbombs" data-topic='0'>Boston Bombings
+        <button class="btn color2 premade google_glass" data-topic='1'>Google Glass
+        <button class="btn color3 premade cispa" data-topic='2'>Cispa
+        <button class="btn color4 premade startups" data-topic='3'>Startups
+        <button class="btn color5 premade mobile" data-topic='4'>Mobile
+        <button class="btn color6 premade bitcoin" data-topic='5'>Bitcoin
+        <button class="btn color7 premade servers" data-topic='6'>Back-End Development
         <button class="btn primary custom">Custom
       </div>
 	  	<div id="bar" class="container" data-intro='This bar graph displays the keywords relevant to the story of the Tsarnaevs. It does not come as a surprise that &quot;Boston&quot; was the most popular word for this theme. If you hover over a keyword, the scatterplot to the right will update to highlight the articles that contain that keyword.' data-step='3' data-position='top'>
@@ -61,9 +61,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h2>Make Your Own Theme!</h2>
       </div>
-      <div class="modal-body">
-        Click this shit
-      
+      <div class="modal-body">      
         <div class="custom_theme">
           <h3>Make Your Own Theme:</h3>
           <input class="custom_keyword" placeholder="Your keyword">
@@ -82,9 +80,10 @@
       </div>
     </div>
 
-
-
-
+    <div class="tooltip" id="stream_tt">
+    	<div class="tt_title">
+    	</div>
+    </div>
 
 		<script>
 			$('#video_modal').modal('show');

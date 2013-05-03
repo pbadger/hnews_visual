@@ -1,3 +1,19 @@
+stream = {};
+
+theme_dict = {'bmbombs':'Boston Marathon Events','google_glass':'Google Glass','cispa':'CISPA','startups':'Startup News','mobile':'Mobile News','bitcoin':'Bitcoin News','servers':'Back-End Development'};
+
+stream.show_tooltip = function(d){
+  window.clearTimeout(window.timeoutHandle);
+  $('#stream_tt').show();
+  $('#stream_tt .tt_title').text(theme_dict[d[0].name]);
+  //$('#stream_tt .tt_points').text('Points: '+d.Points);
+}
+stream.hide_tooltip = function(){
+  window.timeoutHandle = window.setTimeout(function() {
+    $("#stream_tt").hide();
+  }, 80)
+}
+
 function draw_stream(){
   var short_days = ['Mon','Tues','Wed','Thurs','Fri','Sat','Sun','Mon','Tues','Wed','Thurs','Fri','Sat','Sun'];
   var articles = [];
@@ -15,18 +31,6 @@ function draw_stream(){
       height = $('#stream').height() - margin.top - margin.bottom;
 
   var xAxis = d3.svg.axis().scale(x);
-
-  // var findmax = function(){
-  //   biggest_sum = 0;
-  //   for(var i=0;i<14;i++){
-  //     var day_sum = 0;
-  //     _.each(layers0[i],function(points){
-  //       day_sum += points;
-  //     })
-  //     biggest_sum = Math.max(biggest_sum,day_sum);
-  //   }
-  //   return biggest_sum;
-  // }
 
   var x = d3.scale.linear()
     .domain([0,13])
@@ -63,11 +67,17 @@ function draw_stream(){
       .style("fill", function() { return color(Math.random()); })
       .style("cursor",'pointer')
       .on("mouseover", function(d,i){
-        d3.select(this).style('stroke','black').style("stroke-width","3px"); 
+        d3.select(this).style('stroke','black').style("stroke-width","3px");
+        stream.show_tooltip(d); 
       }) 
-      .on("mouseout", function(){d3.select(this).style('stroke','none');})
+      .on("mouseout", function(){
+        d3.select(this).style('stroke','none');
+        stream.hide_tooltip();
+      })
       .on("click",function(d,i){
-        var theme_name = d[0].name
+        $('.middle-area button').removeClass('selected');
+        $('.middle-area .'+d[0].name).addClass('selected');
+        var theme_name = d[0].name;
         remove_bar_and_scatter();
         draw_bar(theme_name);
         draw_scatter(theme_name);
@@ -107,18 +117,24 @@ function draw_stream(){
       .attr("transform","translate(300 14) rotate(180)")
       .style("font-size",14)
       .text("Theme Points: 1 tick = 200 points")
-
-  $('#video_modal').modal('hide');
-  //$('#stream').children().attr('data-intro', 'test');
-  //$('#stream').children().attr('data-step', '4');  
-  //$('#bmbombs').attr('stroke', 'black');
   
-  if (document.cookie != 'seen_page')
-  {
-    introJs().start();
-    document.cookie = 'seen_page';
-  }
-  //introJs().onexit(reset_highlight());
+  $('.loading').hide();
+  $('.loading').html('<button class="btn premade color8" onclick="exit_modal()">Continue');
+  $('.loading button').click(function() {
+    $('#video_modal').modal('hide');
+    if (document.cookie != 'seen_page')
+    {
+      introJs().start();
+      document.cookie = 'seen_page';
+    }
+  });
+  $('.loading').show();
+
+  $('#stream svg').mouseover(function(e){
+    var mouse_top = e.pageY;
+    var mouse_left = e.pageX;
+    $('#stream_tt').offset({top: mouse_top-50, left: mouse_left+5})
+  });
 
   function reset_highlight(){
     $('#bmbombs').attr('stroke', 'none');
