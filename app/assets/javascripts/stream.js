@@ -1,4 +1,4 @@
-function draw_stream(theme){
+function draw_stream(){
   var short_days = ['Mon','Tues','Wed','Thurs','Fri','Sat','Sun','Mon','Tues','Wed','Thurs','Fri','Sat','Sun'];
   var articles = [];
   _.each(theme_names,function(name){
@@ -63,7 +63,6 @@ function draw_stream(theme){
       .style("fill", function() { return color(Math.random()); })
       .style("cursor",'pointer')
       .on("mouseover", function(d,i){
-        console.log(d[0].name);
         d3.select(this).style('stroke','black').style("stroke-width","3px"); 
       }) 
       .on("mouseout", function(){d3.select(this).style('stroke','none');})
@@ -96,16 +95,16 @@ function draw_stream(theme){
   });
 
   svg.append("text")
-    .attr("transform","translate( "+(width / 2 - 200)+" 20)")
+    .attr("transform","translate( "+(width / 2 - 220)+" 20)")
     .style("font-size",20)
-    .text("Themes over the Course of a Week")
+    .text("HN Themes From April 15th to April 28th")
 
   var y_axis = svg.append("g")
     .attr("class","y axis")
     .attr("transform","translate(30 0) rotate(90)")
     .call(yAxis.tickFormat(""))
     .append("text")
-      .attr("transform","translate(350 10) rotate(180)")
+      .attr("transform","translate(300 14) rotate(180)")
       .style("font-size",14)
       .text("Theme Points: 1 tick = 200 points")
 

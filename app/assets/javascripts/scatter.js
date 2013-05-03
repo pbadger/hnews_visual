@@ -58,29 +58,21 @@ function draw_scatter(theme){
     brush.clear()
     brush_coords = [ [0,0],[0,0] ];
     console.log(p,'brushstart')
-    // if (brushCell !== p) {
-    //   cell.call(brush.clear());
-    //   x.domain(domainByTrait[p.x]);
-    //   y.domain(domainByTrait[p.y]);
-    //   brushCell = p;
-    // }
   }
 
   function brushmove(p) {
     var e = brush.extent();
     console.log(e,'brushmove')
-    brush_coords = e
-    // bottom left to top right
-    // brush_coords = [ [date_1,point_1],[date_2,points_2] ] 
+    brush_coords = e 
   }
 
   function brushend(p) {
-    console.log(brush_coords,'0,0')
+    // window.brush_co = brush_coords
     var selected_articles = _.filter(themes[theme].articles,function(article){
-      if((brush_coords[0][0] < parseDate(clean_date(article.date_time))) &&
-        (brush_coords[1][0] > parseDate(clean_date(article.date_time))) &&
-        (brush_coords[0][1] < article.Points) &&
-        (article.Points < brush_coords[1][1])){
+      if((brush_coords[0][0] <= parseDate(clean_date(article.date_time))) &&
+        (brush_coords[1][0] >= parseDate(clean_date(article.date_time))) &&
+        (brush_coords[0][1] <= article.Points) &&
+        (brush_coords[1][1] >= article.Points)){
         return true
       }
       else{return false}
@@ -121,7 +113,6 @@ function draw_scatter(theme){
     .call(yAxis)
   .append("text")
     .attr("class","label")
-   // .attr("transform","rotate(-90)")
     .attr("y", height/2)
     .attr("x", 60)
     .attr("dy", '.72em')
@@ -129,7 +120,13 @@ function draw_scatter(theme){
     .text("Points")
     .style("font-size",15);
 
+  svg.attr("width", width + margin.left + margin.right + 10)
+    .attr("height", height + margin.top + margin.bottom + 10)  
   svg.call(brush);
+
+  svg.attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+
 
   svg.append("text")
     .attr("y", 10)
@@ -151,14 +148,11 @@ function draw_scatter(theme){
       return y(parseInt(d.Points));
     })
     .attr("r",3.5)
-    // .attr('opacity', function(d){
-    //   return Math.log(d.Points)/8 + 0.13;
-    // })
     .on("mouseover", function(d,i){ d3.select(d3.event.target).attr('r',6.5);scatter.fill_show_tooltip(d)})
     .on("mouseout", function(){d3.select(this).attr('r',3.5);scatter.hide_tooltip()})
     .on("mousedown", function(d){window.open(d.Url,'_blank',false)})
 
-    $('.scatter_plot .tick')[0].remove()
+    $('.scatter_plot .tick')[0].remove();
 
     $('.scatter_plot a').mouseover(function(e){
       var mouse_top = e.pageY;
