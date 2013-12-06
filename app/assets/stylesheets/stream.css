@@ -1,1 +1,5 @@
-#stream.axis&text{ display: none;}
+#stream.axis{
+  text{
+    display: none;
+  }
+}
