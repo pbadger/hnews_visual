@@ -119,6 +119,7 @@ function draw_stream(){
       .text("Theme Points: 1 tick = 200 points")
   
   $('.loading').hide();
+  $('.modal.fade').css('top', '10%')
   $('.loading').html('<button class="btn premade color8">Continue');
   $('.loading button').click(function() {
     $('#video_modal').modal('hide');

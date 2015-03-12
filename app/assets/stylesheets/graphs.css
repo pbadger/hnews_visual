@@ -32,6 +32,7 @@ body {
 }
 .chart rect:hover {
   stroke: black;
+  cursor: pointer;
 }
 #side,.back_but{
   padding: 5px;
@@ -185,4 +186,17 @@ body {
 }
 .reset-buttons{
   width:100%;
+}
+
+#video_modal {
+  top: 15%;
+  height: 405px;
+}
+
+#video_modal .loading button  {
+  color: white;
+}
+
+#video_modal .loading button:hover {
+  color: black;
 }
